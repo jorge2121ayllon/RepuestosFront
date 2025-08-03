@@ -1,0 +1,85 @@
+
+
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Compra</mat-card-title>
+    <mat-card-subtitle>Agregar</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-actions>
+  <button mat-fab color="primary" matTooltip="Agregue una Nueva compra" (click)="openDialog(0)">
+  <mat-icon>add_business</mat-icon>
+  </button>
+</mat-card-actions>
+<br>
+
+<mat-card-content>
+  <table class="example-full-width" cellspacing="0">
+    <tr>
+      <td style="width: 100%;">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Buscar</mat-label>
+          <input matInput placeholder="buscar compra" [formControl]="filtro">
+        </mat-form-field>
+      </td>
+      <td>
+         <button mat-fab color="primary" matTooltip="Buscar categoria"
+        (click)="Filtro()"><mat-icon>search</mat-icon></button>
+      </td>
+    </tr>
+  </table>
+
+
+
+ <div class="mat-elevation-z8">
+  <div class="table-responsive">
+    <table mat-table [dataSource]="compras"  class="mat-elevation-z8">
+
+
+      <ng-container matColumnDef="id"  >
+        <th mat-header-cell *matHeaderCellDef> Codigo </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+     </ng-container>
+
+
+
+
+      <ng-container matColumnDef="total">
+        <th mat-header-cell *matHeaderCellDef > total </th>
+        <td mat-cell *matCellDef="let element"> {{element.total}} Bs</td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+        <td mat-cell *matCellDef="let element">
+          <button  mat-mini-fab color="warn" (click)="borrar(element.id)">
+            <mat-icon>delete_sweep</mat-icon>
+          </button>
+          &nbsp;
+          <button mat-mini-fab (click)="openDialog(element.id)" color="basic" >
+            <mat-icon>edit_note</mat-icon>
+          </button>
+        </td>
+    </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [length]="length"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    [pageIndex]="pageIndex"
+    (page)="handlePage($event)"
+    aria-label="Select page">
+    </mat-paginator>
+
+
+  </div>
+
+
+ </div>
+
+</mat-card-content>
+</mat-card>

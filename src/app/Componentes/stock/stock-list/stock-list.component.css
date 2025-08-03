@@ -1,0 +1,8 @@
+.my-custom-scrollbarr {
+    position: relative;
+    height:300px;
+    overflow: auto;
+    }
+    .mat-mdc-list-item-icon {
+        color: rgba(0, 0, 0, 0.54);
+      }

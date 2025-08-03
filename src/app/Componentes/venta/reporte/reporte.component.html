@@ -1,0 +1,78 @@
+
+<div  class="row" style="margin: 15px;">
+
+  <h1 style="text-align: center; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-weight: bold; font-size: xx-large;" >
+    Reporte De ventas los ultimos 7 dias.
+  </h1>
+
+  <div class="col-md-1">
+  </div>
+
+  <div class="col-md-6">
+    <div class="card" style="width: 100%;">
+
+      <div class="card-header" style="text-align: center;font-size: large;">
+        Gastos Ventas y Ganancias
+      </div>
+      <div class="card-body" style="text-align: center; font-family: 'Courier New', Courier, monospace; ">
+        <canvas class="chart" baseChart
+        [data]="barChartData"
+        [options]="barChartOptions"
+        [type]="barChartType"
+        (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)">
+        </canvas>
+      </div>
+      <button mat-button mat-raised-button color="primary" (click)="randomize2()">Cambiar Estilo de Grafico</button>
+
+    </div>
+  </div>
+
+
+  <div class="col-md-3">
+    <div class="card" style="width: 100%;">
+
+      <div class="card-header" style="text-align: center;font-size: large;">
+        Cantidad Ventas Por Categorias
+      </div>
+      <div class="card-body">
+        <canvas baseChart class="chart"
+        [data]="pieChartData"
+        [type]="pieChartType"
+        [labels]="listaReporte.categorias"
+        [options]="pieChartOptions">
+      </canvas>
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="col-md-12" >
+    <br>
+
+    <div style="margin-left: 5%;margin-right: 5%;">
+
+      <div class="card" style="width: 100%;" >
+
+      <div class="card" >
+        <div class="card-header" style="text-align: center;font-size: x-large;">
+          Producto mas vendido.
+        </div>
+        <div *ngIf="listaReporte.producto" class="card-body" style="text-align: center; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: larger;">
+          <h5 class="card-title" style="font-size: x-large; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">El producto mas vendido es {{listaReporte.producto.descripcion}}.</h5>
+          <p class="card-text"  >Cantidad Vendida : {{listaReporte.cantidad}}</p>
+          <p class="card-text"  >Precio de Compra : {{listaReporte.producto.precioCompra}} Bs</p>
+          <p class="card-text">Precio de Venta : {{listaReporte.producto.precioVenta}} Bs</p>
+          <p class="card-text">Stock Disponible : {{listaReporte.producto.stock}}</p>
+        </div>
+      </div>
+      </div>
+
+    </div>
+  </div>
+
+
+</div>
+

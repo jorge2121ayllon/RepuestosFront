@@ -1,0 +1,31 @@
+<h1 mat-dialog-title name="titulo" id="titulo">Mi caja</h1>
+<div mat-dialog-content>
+    <div class="body-content">
+        <div class="module">
+          <form class="form" novalidate [formGroup]="form">
+            <mat-form-field class="label" appearance="fill" *ngIf="visibilidadApertura===true">
+              <mat-label>Cantidad de apertura</mat-label>
+              <input type="number" matInput placeholder="bs. 500.45" formControlName="apertura">
+              <mat-error  *ngIf="form.controls['apertura'].invalid">
+                Debe ingresar una cantidad válida de apertura.
+              </mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="label" appearance="fill" *ngIf="visibilidadCierre===true">
+              <mat-label>Cantidad de cierre</mat-label>
+              <input type="number" matInput placeholder="bs. 500.45" formControlName="cierre">
+              <mat-error  *ngIf="form.controls['cierre'].invalid">
+                Debe ingresar una cantidad válida de cierre.
+              </mat-error>
+            </mat-form-field>
+            <br>
+            
+              <br>
+           </form>
+        </div>
+      </div>
+</div>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-flat-button color="primary" [disabled]="form.invalid" (click)="guardar()">Guardar</button> &nbsp;
+</mat-dialog-actions>

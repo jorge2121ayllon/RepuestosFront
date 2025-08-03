@@ -1,0 +1,95 @@
+<div class="alert alert-success" role="alert" *ngIf="(productos)!.length==0">
+  <h4 class="alert-heading">NO CUENTA CON PRODUCTOS CON BAJO STOCK !!</h4>
+  <p>El Inventario no cuenta con productos de bajo stock. Los Productos registrados en el Sistema aun se encuentran sobre el limite de su stock minimo.</p>
+  <hr>
+  <p class="mb-0">Siga con las ventas sin ninguna preocupación por que cuenta con un stock superior al minimo.</p>
+</div>
+
+<mat-card >
+    <mat-selection-list>
+        <div mat-subheader>PRODUCTOS</div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Ingrese el filtro para la búsqueda" aria-label="Recipient's username" aria-describedby="basic-addon2" [formControl]="filtro" >
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" (click)="filtrar()">Buscar</button>
+          </div>
+        </div>
+
+        <mat-card>
+          <mat-card-content >
+            <button mat-fab color="primary" aria-label="Example icon button with a vertical three dot icon"
+            matTooltip="IMPRIMIR LISTA"
+             [matTooltipDisabled]="disabled.value" (click)="printer()">
+              <mat-icon>print</mat-icon>
+            </button>
+            &nbsp;
+             <i> <u>Imprimir la Lista de Productos con bajo Stock</u></i>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-list-item *ngFor="let producto of productos" (click)="mostrar(producto)">
+          <mat-icon matListItemIcon>production_quantity_limits</mat-icon>
+          <div matListItemTitle>{{producto.descripcion | uppercase}}</div>
+          <div matListItemLine>{{producto.fechaMovimiento | date}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </mat-selection-list>
+      <mat-paginator [length]="length"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="pageSizeOptions"
+                [pageIndex]="pageIndex"
+                (page)="handlePage($event)"
+                aria-label="Select page"
+                >
+      </mat-paginator>
+</mat-card>
+  <br>
+  <mat-card class="example-card"  *ngIf="(stockPanel)>0">
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>{{descripcionPanel}}</mat-card-title>
+        <mat-card-subtitle>MARCA: <strong>{{marcaPanel}}</strong></mat-card-subtitle>
+        <mat-card-subtitle>CATEGORIA: <strong>{{categoriaPanel}}</strong></mat-card-subtitle>
+        <mat-card-subtitle>CODIGO INT.: <strong>{{codigoInternoPanel}}</strong></mat-card-subtitle>
+        <mat-card-subtitle>CODIGO:</mat-card-subtitle>
+        <mat-card-subtitle><ngx-barcode [bc-value]="codigoPanel" [bc-display-value]="true" style="position: relative;"></ngx-barcode></mat-card-subtitle>
+        <img mat-card-xl-image src="https://d8bwfgv5erevs.cloudfront.net/cdn/13/images/curso-online-venta-en-librerias-y-papelerias_l_primaria_1.jpg" >
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-card-content>
+      FECHA DE MOVIMIENTO: {{fechaMovimientoPanel | date}}
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="example-card" *ngIf="(stockPanel)>0">
+    <mat-card-title-group>
+      <mat-card-content>
+        <h2>STOCK TOTAL:<strong></strong> {{stockPanel}}</h2>
+       </mat-card-content>
+    </mat-card-title-group>
+  </mat-card>
+
+
+  <div id="print" class="container" hidden>
+    <h2 style="text-align: center;">LISTA DE PRODUCTOS CON BAJO STOCK</h2>
+    <p>A continuación se puede observar la lista de productos que se encuentran dentro del stock minimo registrado en el sistema.</p>
+    <table class="table table-bordered table-sm" style="text-align: center; border: black 5px solid; width: 100%; PAGE-BREAK-AFTER: always;">
+      <thead>
+        <tr>
+          <th style="border: black 3px solid;">Nombre</th>
+          <th style="border: black 3px solid;">Ubicacion</th>
+          <th style="border: black 3px solid;">Codigo</th>
+          <th style="border: black 3px solid;">Stock Minimo</th>
+          <th style="border: black 3px solid;">Stock Actual</th>
+        </tr>
+      </thead>
+      <tbody style="border: black 3px solid;">
+        <tr *ngFor="let producto of productosImprimibles">
+          <td style="border: black 3px solid;">{{producto.descripcion+" "+producto.marca}}</td>
+          <td style="border: black 3px solid;">{{producto.codigoInterno}}</td>
+          <td style="border: black 3px solid;">{{producto.codigo}}</td>
+          <td style="border: black 3px solid;">{{producto.stockMinimo}}</td>
+          <td style="border: black 3px solid;">{{producto.stock}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

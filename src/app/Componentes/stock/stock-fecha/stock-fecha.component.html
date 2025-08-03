@@ -1,0 +1,120 @@
+<div class="jumbotron text-center">
+    <mat-card >
+        <h1>Sin Movimiento</h1>
+        <p>Productos que no presentan Movimiento en ventas!</p>
+        <div align="center" >
+            <input type="text" class="form-control form-control-sm mb-2 mr-sm-2" style="width: 10%;" [formControl]="dias">
+            <button type="button" class="btn btn-primary btn-sm mb-2" style="width: 10%;" (click)="cambiarDias()">cambiar</button>
+        </div>
+    </mat-card>
+  </div>
+  <div class="container">
+    <div class="row" >
+        <div class="col-sm-4">
+            <br>
+            <h3 align="center">Productos</h3>
+            <mat-selection-list style="border: 1px solid black;">
+                <div mat-subheader>Lista de Productos</div>
+                <mat-list-item *ngFor="let producto of productos" (click)="mostrar(producto)">
+                  <mat-icon matListItemIcon>style</mat-icon>
+                  <div matListItemTitle>{{producto.descripcion}}</div>
+                  <div matListItemLine>{{producto.fechaMovimiento | date}}</div>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+               
+              </mat-selection-list>
+                <mat-paginator [length]="length"
+                    [pageSize]="pageSize"
+                    [pageSizeOptions]="pageSizeOptions"
+                    [pageIndex]="pageIndex"
+                    (page)="handlePage($event)"
+                    aria-label="Select page"
+                    >
+                </mat-paginator>
+                <br>
+          </div>
+      <div class="col-sm-4">
+        <br>
+        <h3 align="center" >Fecha del Último Movimiento - Fecha Actual</h3>
+        <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label>Rango de Fechas</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+              <input matStartDate placeholder="Fecha Ult. Mov" [formControl]="fechaMovimiento">
+              <input matEndDate placeholder="Fecha Actual" [formControl]="fechaActual">
+            </mat-date-range-input>
+            <mat-hint>Mes/Día/Año – Mes/Día/Año</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field>
+      </div>
+      <div class="col-sm-4">
+        <br>
+        <h3 align="center">Datos del Producto</h3>        
+        <div class="example-listbox-container">
+            <label class="example-listbox-label" id="example-satisfaction-label">
+              <strong>Datos Generales:</strong> 
+            </label>
+            <ul cdkListbox
+                aria-labelledby="example-satisfaction-label"
+                class="example-listbox">
+                <li
+                  [cdkOption]="1"
+                  cdkOptionTypeaheadLabel="great"
+                  class="example-option">
+                  <strong>🔖 Categoria: </strong> {{categoriaPanel}}
+              </li>
+              <li
+                  [cdkOption]="2"
+                  cdkOptionTypeaheadLabel="great"
+                  class="example-option">
+                  <strong>📰 Descripción: </strong> {{descripcionPanel}}
+              </li>
+              <li [cdkOption]="3"
+                  cdkOptionTypeaheadLabel="okay"
+                  class="example-option">
+                  <strong>📑 Marca: </strong> {{marcaPanel}}
+              </li>
+              <li [cdkOption]="4"
+              cdkOptionTypeaheadLabel="okay"
+              class="example-option">
+              <strong>📦 Stock: </strong> {{stockPanel}}
+            </li>
+              <li [cdkOption]="5"
+                  cdkOptionTypeaheadLabel="bad"
+                  class="example-option">
+                  <strong>📦 Stock Minimo: </strong> {{stockMinimoPanel}}
+              </li>
+              <li [cdkOption]="6"
+                  cdkOptionTypeaheadLabel="bad"
+                  class="example-option">
+                  <strong>💲 Precio Compra: </strong> {{precioCompraPanel}}
+              </li>
+              <li [cdkOption]="7"
+                  cdkOptionTypeaheadLabel="bad"
+                  class="example-option">
+                  <strong>💲 Precio Venta: </strong> {{precioVentaPanel}}
+              </li>
+              <li [cdkOption]="8"
+              cdkOptionTypeaheadLabel="bad"
+              class="example-option">
+              <strong>📌 Código Interno: </strong> {{codigoInternoPanel}}
+            </li>
+              <li [cdkOption]="9"
+                  cdkOptionTypeaheadLabel="bad"
+                  class="example-option">
+                  <strong>📌 Código </strong>
+              </li>
+              <li [cdkOption]="10"
+                  cdkOptionTypeaheadLabel="bad"
+                  class="example-option">
+                  <ngx-barcode [bc-value]="codigoPanel" [bc-display-value]="true" ></ngx-barcode>
+              </li>
+            </ul>
+          </div>
+          
+          
+      </div>
+    </div>
+  </div>
+  <br>
+  

@@ -1,0 +1,227 @@
+<h2 mat-dialog-title>Crear venta</h2>
+<mat-dialog-content class="mat-typography">
+
+<form [formGroup]="form" autocomplete="off" >
+
+
+  <br>
+
+
+
+  <div class="row">
+
+    <div class="col-md-5">
+
+
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Buscador de productos</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div>
+
+            
+            <div class="row">
+
+              <div class="col-md-2"> 
+                    <button  mat-fab color="primary" matTooltip="Buscar una Categoria"
+                                (click)="BuscarProducto()"><mat-icon>search</mat-icon></button>
+              </div>
+              <div class="col-md-10"> 
+                    <mat-form-field style="width: 100%;"  class="example-full-width" appearance="outline" >
+                              <mat-label>Ingrese Busqueda</mat-label>
+                              <input matInput placeholder="Busqueda" [formControl]="producto">
+                            </mat-form-field>
+
+              </div>
+            </div>
+            
+          </div>
+
+
+
+          <div class="table-responsive table-bordered table-striped table-wrapper-scroll-y my-custom-scrollbar" *ngIf="listaProducto.length>0" >
+            <table style="text-align: center;" class="table table-dark table-hover">
+              <thead>
+                <tr>
+                  <th>codigo</th>
+                  <th>descripcion</th>
+                  <th>marca</th>
+                  <th>stock</th>
+                  <th>precioVenta</th>
+                </tr>
+              </thead>
+                <tbody>
+                  <tr *ngFor="let producto of listaProducto" (click)="seleccionProducto(producto)">
+                    <td>{{producto.codigo}}</td>
+                    <td>{{producto.descripcion}}</td>
+                    <td>{{producto.marca}}</td>
+                    <td>{{producto.stock}}</td>
+                    <td>{{producto.precioVenta}}</td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+
+
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-md-7">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Datos del cliente</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="row">
+            <div class="col-md-4"> 
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Nombre, Razon social</mat-label>
+                    <input matInput placeholder="nombre" formControlName="nombreCliente">
+
+                    <mat-error  *ngIf="form.controls['nombreCliente'].invalid">
+                      Nombre es requerido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4"> 
+              <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Celular</mat-label>
+                        <input type="text"  matInput placeholder="Celular" formControlName="celular">
+                </mat-form-field>
+            </div>
+
+             <div class="col-md-4"> 
+              <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Nit</mat-label>
+                        <input type="text"  matInput placeholder="Nit" formControlName="nit">
+                </mat-form-field>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  </div>
+
+  <br>
+
+
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Detalles Del Producto</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="table-responsive">
+        <table style="text-align: center;" *ngIf="productoSeleccionado">
+          <thead>
+              <tr>
+                <th class="espacio">Descripcion</th>
+                <th class="espacio">Precio</th>
+                <th class="espacio">Stock</th>
+                <th class="espacio">Cantidad</th>
+                <th class="espacio">Descuento Bs</th>
+                <th class="espacio">Acciones</th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                {{productoSeleccionado.descripcion}} {{productoSeleccionado.marca}}
+              </td>
+              <td>
+                {{productoSeleccionado.precioVenta}}
+              </td>
+              <td>
+                {{productoSeleccionado.stock}}
+              </td>
+              <td>
+                 <input style="width: 70%;" type="number" class="form-control" placeholder="cantidad" [formControl]="cantidad">
+             </td>
+             <td>
+              <input type="number" style="width: 70%" class="form-control" placeholder="descuento" formControlName="descuento">
+            </td>
+
+              <td>
+                <button mat-flat-button color="primary" (click)="agregarDetalle()">Agregar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+
+  <br>
+
+
+  <mat-card>
+
+
+    <mat-card-header>
+      <mat-card-title>Comprobante de Venta</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+
+      <div class="table-responsive">
+        <table  style="text-align: center; " *ngIf="listadetalles.length>0"  class="table table-hover">
+          <thead>
+            <tr>
+              <th>descripcion</th>
+              <th>Precio Unitario</th>
+              <th>Cantidad</th>
+              <th>Descuento</th>
+              <th>Subtotal</th>
+              <th>Subtotal C/D</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+            <tbody>
+              <tr *ngFor="let producto of listadetalles">
+                <td>{{producto.producto}}</td>
+                <td >{{producto.precioVenta}} Bs.</td>
+                <td >{{producto.cantidad}}</td>
+                <td >{{producto.descuento}} Bs.</td>
+                <td *ngIf="producto.descuento && producto.subTotal">{{producto.subTotal + producto.descuento}} Bs.</td>
+                <td *ngIf="!producto.descuento">{{producto.subTotal}} Bs.</td>
+                <td >{{producto.subTotal}} Bs.</td>
+
+                <td>
+
+                  <button  *ngIf="this.idventa==0" mat-icon-button color="basic" (click)="editarDetalle(producto)">
+                    <mat-icon>create</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="eliminarDetalle(producto)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+
+              </tr>
+
+              <tr  >
+                <td colspan="4" style="text-align: right;" >
+                  <strong>Total a Pagar :  {{totalVenta }} Bs. </strong>
+                </td>
+                <td colspan="1" style="text-align: right;">
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+          </div>
+
+    </mat-card-content>
+  </mat-card>
+
+</form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-flat-button color="primary" (click)="guardar()">Guardar Venta</button> &nbsp;
+</mat-dialog-actions>
+
+
+

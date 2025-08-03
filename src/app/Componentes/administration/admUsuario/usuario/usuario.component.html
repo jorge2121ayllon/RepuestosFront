@@ -1,0 +1,86 @@
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>USUARIOS</mat-card-title>
+      <mat-card-subtitle>Agregar un nuevo usuario</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+      <button mat-fab color="primary" matTooltip="Agregar un nuevo usuario para el manejo sistema"
+      [matTooltipDisabled]="disabled.value" (click)="openDialog(1,null)">
+      <mat-icon>add_business</mat-icon>
+      </button>
+    </mat-card-actions>
+  <br>
+    <mat-card-content>
+
+      <table class="example-full-width " cellspacing="0">
+        <tr>
+          <td style="width: 100%;">
+            <mat-form-field style="width: 100%;">
+              <mat-label>Buscar</mat-label>
+              <input matInput placeholder="buscar usuarios" [formControl]="filtro">
+            </mat-form-field>
+          </td>
+          <td>
+             <button mat-fab color="primary" matTooltip="Buscar un usuario"
+             [matTooltipDisabled]="disabled.value" (click)="filtrar()"><mat-icon>search</mat-icon></button>
+          </td>
+        </tr>
+      </table>
+
+      <div class="contenedorTabla ">
+        <div class="mat-elevation-z8 table-responsive ">
+            <table mat-table [dataSource]="dataSource">
+
+
+              <ng-container matColumnDef="nombreUsuario">
+                <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombreUsuario}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="correo">
+                <th mat-header-cell *matHeaderCellDef> Correo</th>
+                <td mat-cell *matCellDef="let element"> {{element.gmail}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="rol">
+                <th mat-header-cell *matHeaderCellDef> Rol de usuario </th>
+                <td mat-cell *matCellDef="let element"> {{element.rol}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="clave">
+                <th mat-header-cell *matHeaderCellDef> Clave </th>
+                <td mat-cell *matCellDef="let element"> {{element.clave}} </td>
+              </ng-container>
+
+               <ng-container matColumnDef="acciones">
+                <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-mini-fab color="primary"  matTooltip="Edite el usuario"
+                  [matTooltipDisabled]="disabled.value" aria-label="Example icon button with a menu icon"
+                  (click)="openDialog(2,element)">
+                    <mat-icon>edit_note</mat-icon>
+                  </button>
+                  &nbsp;
+                  <button mat-mini-fab color="primary" matTooltip="Elimine el usuario"
+                  [matTooltipDisabled]="disabled.value" aria-label="Example icon button with a menu icon"
+                  (click)="eliminar(element.id)">
+                    <mat-icon>delete_sweep</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+              <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+            </table>
+            <mat-paginator [length]="length"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="pageSizeOptions"
+          [pageIndex]="pageIndex"
+          (page)="handlePage($event)"
+          aria-label="Select page">
+          </mat-paginator>
+          </div>
+    </div>
+    </mat-card-content>
+  </mat-card>
+

@@ -1,0 +1,134 @@
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>Caja</mat-card-title>
+      <mat-card-subtitle >Abrir caja</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+      <button mat-fab color="primary" matTooltip="Abrir caja para hoy"
+      [matTooltipDisabled]="disabled.value" (click)="openDialog(1,null)">
+      <mat-icon>add_business</mat-icon>
+      </button>
+    </mat-card-actions>
+    <form [formGroup]="form">
+      &nbsp;
+      <mat-form-field>
+        <mat-label>Rango de fechas</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input matStartDate placeholder="Día de inicio" formControlName="inicio">
+          <input matEndDate placeholder="Día de fin" formControlName="fin">
+        </mat-date-range-input>
+        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+      &nbsp;
+      <mat-form-field class="label" appearance="fill">
+        <mat-label>Cantidad minima</mat-label>
+        <input type="number" matInput placeholder="bs. 500.45" formControlName="filtro">
+      </mat-form-field>
+      &nbsp;
+      <button mat-fab color="primary"
+      matTooltip="Buscar la Caja en el rango de fechas especificado"
+      matTooltipClass="example-tooltip-red"
+      aria-label="Button that shows a red tooltip"
+      class="example-button" color="primary"
+      (click)="filtrar()">
+      <mat-icon>search</mat-icon>
+      </button>
+    </form>
+  <br>
+    <mat-card-content>
+      <div class="contenedorTabla">
+        <div class="mat-elevation-z8 table-responsive ">
+            <table mat-table [dataSource]="dataSource">
+              <ng-container matColumnDef="apertura">
+                <th mat-header-cell *matHeaderCellDef>Apertura de caja Bs.</th>
+                <td mat-cell *matCellDef="let element"> {{element.apertura}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="cierre">
+                <th mat-header-cell *matHeaderCellDef>Cierre de caja Bs.</th>
+                <td mat-cell *matCellDef="let element"> {{element.cierre}} </td>
+              </ng-container>
+              <ng-container matColumnDef="cantidadActual">
+                <th mat-header-cell *matHeaderCellDef>Cantidad actual en caja Bs.</th>
+                <td mat-cell *matCellDef="let element"> {{element.cierre}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="fechaApertura">
+                <th mat-header-cell *matHeaderCellDef>Hora apertura</th>
+                <td mat-cell *matCellDef="let element"> {{element.fechaApertura | date: 'dd/MM/yy hh:mm a'}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="fechaCierre">
+                <th mat-header-cell *matHeaderCellDef> Hora cierre </th>
+                <td mat-cell *matCellDef="let element"> {{element.fechaCierre | date: 'dd/MM/yy hh:mm a'}} </td>
+              </ng-container>
+              <ng-container matColumnDef="usuario" *ngIf="authService.IsAdmin()">
+                <th mat-header-cell *matHeaderCellDef>Usuario</th>
+                <td mat-cell *matCellDef="let element"> {{element.idUserNavigation.nombreUsuario}} </td>
+              </ng-container>
+              <ng-container matColumnDef="Acciones">
+                <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-mini-fab color="primary"  matTooltip="Editar caja"
+                  [matTooltipDisabled]="disabled.value" aria-label="Example icon button with a menu icon"
+                  (click)="openDialog(2,element)" *ngIf="element.fechaCierre">
+                    <mat-icon>edit_note</mat-icon>
+                  </button>
+                  &nbsp;
+                  <button mat-mini-fab color="primary"  matTooltip="Cerrar caja"
+                  [matTooltipDisabled]="disabled.value" aria-label="Example icon button with a menu icon"
+                  (click)="cerrar(element)" *ngIf="!element.fechaCierre">
+                    <mat-icon>exit_to_app</mat-icon>
+                  </button>
+                  &nbsp;
+                  <button mat-mini-fab color="primary"  matTooltip="Imprimir caja"
+                  [matTooltipDisabled]="disabled.value" aria-label="Example icon button with a menu icon"
+                  (click)="imprimir(element)" *ngIf="element.fechaCierre">
+                    <mat-icon>print</mat-icon>
+                  </button>
+                  &nbsp;
+                  <button mat-mini-fab color="primary" matTooltip="Elimine la caja"
+                  [matTooltipDisabled]="disabled.value" aria-label="Example icon button with a menu icon"
+                  (click)="eliminar(element.id)">
+                    <mat-icon>delete_sweep</mat-icon>
+                  </button>
+                </td>
+                <ng-container matColumnDef="cerrarCaja" *ngIf="valorCaja">
+                  <th mat-header-cell *matHeaderCellDef> Cerrar caja </th>
+                  <td mat-cell *matCellDef="let element">
+                    <button mat-mini-fab color="primary"  matTooltip="cerrar caja"
+                    [matTooltipDisabled]="disabled.value" aria-label="Example icon button with a menu icon"
+                    (click)="cerrar(element)" *ngIf="!element.fechaCierre">
+                      <mat-icon>exit_to_app</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="ImprimirCaja">
+                  <th mat-header-cell *matHeaderCellDef> Reporte caja </th>
+                  <td mat-cell *matCellDef="let element">
+                    <button mat-mini-fab color="primary"  matTooltip="Impirimir caja"
+                    [matTooltipDisabled]="disabled.value" aria-label="Example icon button with a menu icon"
+                    (click)="imprimir(element)" *ngIf="element.fechaCierre">
+                      <mat-icon>print</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+              <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+            </table>
+            <mat-paginator [length]="length"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="pageSizeOptions"
+          [pageIndex]="pageIndex"
+          (page)="handlePage($event)"
+          aria-label="Select page">
+          </mat-paginator>
+          </div>
+    </div>
+    </mat-card-content>
+  </mat-card>
+

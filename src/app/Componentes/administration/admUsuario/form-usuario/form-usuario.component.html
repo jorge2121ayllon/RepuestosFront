@@ -1,0 +1,58 @@
+<h2 mat-dialog-title>Crear usuario</h2>
+<mat-dialog-content  class="mat-typography">
+          <form class="form" novalidate [formGroup]="form">
+            <mat-form-field class="label" appearance="fill">
+              <mat-label>Nombre de usuario</mat-label>
+              <input matInput placeholder="Nombre usuario" formControlName="nombreUsuario">
+              <mat-error  *ngIf="form.controls['nombreUsuario'].invalid">
+                Debe ingresar un nombre de usuario.
+              </mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="label" appearance="fill">
+              <mat-label>Correo electrónico</mat-label>
+              <input type="email" matInput placeholder="Ingrese su correo electrónico" formControlName="gmail">
+              <mat-error  *ngIf="form.controls['gmail'].hasError('required')">
+                Debe ingresar un correo.
+              </mat-error>
+              <mat-error *ngIf="form.controls['gmail'].hasError('email') && !form.controls['gmail'].hasError('required')">
+                Correo inválido.
+              </mat-error>
+            </mat-form-field>
+            <br>
+              <mat-label class="label" *ngIf="visibilidadClave===true">
+                <section class="example-section">
+                  <mat-checkbox class="example-margin" [labelPosition]="labelPosition" formControlName="cambiarClave" (click)="validarClave()">¿Cambiar contraseña?</mat-checkbox>
+                </section>
+              </mat-label>
+            <mat-label  class="label" *ngIf="form.get('cambiarClave')!.value===true">
+              <mat-form-field class="label" appearance="fill">
+                <mat-label>Contraseña</mat-label>
+                <input type="password" matInput placeholder="Ingrese una contraseña mayor a 8 dígitos" formControlName="clave">
+                <mat-error  *ngIf="form.controls['clave'].invalid">
+                  Debe ingresar una contraseña válida, intente de nuevo.
+                </mat-error>
+                <mat-error *ngIf="form.controls['clave'].hasError('minLength')">
+                  La conraseña debe tener más de 8 caracteres.
+                </mat-error>
+              </mat-form-field>
+            </mat-label>
+            <br>
+            <mat-form-field class="label" appearance="fill">
+              <mat-label>Rol del usuario</mat-label>
+              <mat-select formControlName="rol">
+                <mat-option *ngFor="let roles of roless" [value]="roles.value">
+                  {{roles.viewValue}}
+                </mat-option>
+              </mat-select>
+              <mat-error  *ngIf="form.controls['rol'].invalid">
+                Debe seleccionar un rol.
+              </mat-error>
+            </mat-form-field>
+            <br>
+          </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-flat-button color="primary" [disabled]="form.invalid" (click)="guardar()">Guardar</button> &nbsp;
+</mat-dialog-actions>

@@ -1,0 +1,122 @@
+<h1 mat-dialog-title>PRODUCTO</h1>
+<div mat-dialog-content class="mat-typography">
+  <hr>
+          <form class="form" novalidate [formGroup]="producto">
+            <label class="label">
+              <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Descripcion</mat-label>
+                <input matInput placeholder="Descripcion" formControlName="Descripcion">
+                <mat-hint align="end" *ngIf="producto.get('Descripcion')!.value===''" style="color: red;">Campo Obligatorio</mat-hint>
+              </mat-form-field>
+            </label>
+            <br>
+            <div class="row"  style="margin-bottom: 10px;">
+              <div class="col">
+                <label class="label">
+                  <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Marca</mat-label>
+                    <input matInput placeholder="ingrese la marca" formControlName="Marca">
+                  </mat-form-field>
+                </label>
+              </div>
+              
+            </div>
+
+            <div class="row"  style="margin-bottom: 10px;">
+              <div class="col">
+                <label class="label">
+                  <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+                    <mat-label>Precio de Compra</mat-label>
+                    <input  type="number" matInput placeholder="0" formControlName="PrecioCompra">
+                    <span matTextPrefix>Bs.&nbsp;</span>
+                    <mat-hint align="end" *ngIf="producto.get('PrecioCompra')!.value===0 || producto.get('PrecioCompra')!.value==='' " style="color: red;">Campo Obligatorio</mat-hint>
+                  </mat-form-field>
+                </label>
+              </div>
+              <div class="col">
+                <label class="label">
+                  <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+                    <mat-label>Precio de Venta</mat-label>
+                    <input  type="number" matInput placeholder="0" formControlName="PrecioVenta">
+                    <span matTextPrefix>Bs.&nbsp;</span>
+                    <mat-hint align="end" *ngIf="producto.get('PrecioVenta')!.value===0 || producto.get('PrecioVenta')!.value===''" style="color: red;">Campo Obligatorio</mat-hint>
+                  </mat-form-field>
+                </label>
+              </div>
+            </div>
+
+            <div class="row"  style="margin-bottom: 10px;">
+              <div class="col">
+                <label class="label">
+                  <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+                    <mat-label>Stock</mat-label>
+                    <input  type="number" matInput placeholder="0" formControlName="Stock">
+                    <mat-hint align="end" *ngIf="producto.get('Stock')!.value===0 || producto.get('Stock')!.value===''" style="color: red;">Campo Obligatorio</mat-hint>
+                  </mat-form-field>
+                </label>
+              </div>
+              <div class="col">
+                <label class="label">
+                  <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+                    <mat-label>Stock Minimo</mat-label>
+                    <input  type="number" matInput placeholder="0" formControlName="StockMinimo">
+                    <mat-hint align="end" *ngIf="producto.get('StockMinimo')!.value===0 || producto.get('StockMinimo')!.value==='' " style="color: red;">Campo Obligatorio</mat-hint>
+                  </mat-form-field>
+              </label>
+              </div>
+            </div>
+
+            <div class="row" style="margin-bottom: 10px;">
+              <div class="col">
+                <label  class="label">
+                  <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Categoria</mat-label>
+                    <mat-select formControlName="IdCategoria">
+                      <mat-option selected  [value]="0" disabled>
+                        Seleccione una categoria
+                      </mat-option>
+                      <mat-option *ngFor="let obj of categorias" [value]="obj.id">
+                        {{obj.nombre}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-hint align="end"  *ngIf="producto.get('IdCategoria')!.value===0">Campo Obligatorio</mat-hint>
+                  </mat-form-field>
+                </label>
+              </div>
+              <div class="col">
+                <label class="label">
+                  <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Ubicacion Almacen</mat-label>
+                    <input matInput placeholder="Ubicacion Almacen" formControlName="CodigoInterno">
+                  </mat-form-field>
+                </label>
+              </div>
+            </div>
+
+            <div class="row"  style="margin-bottom: 10px;">
+              <div class="col" align="center">
+                <label class="label" >
+                  <section class="example-section">
+                    <mat-checkbox class="example-margin" [labelPosition]="labelPosition" formControlName="Code" (click)="actualizarCodigo()">Generar Codigo</mat-checkbox>
+                  </section>
+                </label>
+
+              </div>
+              <div class="col">
+                <label class="label" *ngIf="producto.get('Code')!.value===false">
+                  <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Ingrese el Código</mat-label>
+                    <input matInput placeholder="Codigo del Producto" formControlName="Codigo">
+                    <mat-hint align="end" *ngIf="producto.get('Code')!.value===false && producto.get('Codigo')!.value===''" style="color: red;">Campo Obligatorio</mat-hint>
+                  </mat-form-field>
+                </label>
+              </div>
+            </div>
+
+          </form>
+        </div>
+
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>CERRAR</button>
+  <button mat-raised-button color="primary" type="submit" [disabled]="producto.invalid" (click)="guardar()">Guardar</button>
+</div>

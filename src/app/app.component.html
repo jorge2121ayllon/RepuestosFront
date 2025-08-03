@@ -1,0 +1,114 @@
+<div class="contenedor-padre">
+  <mat-toolbar class="barra" color="primary" >
+    <mat-toolbar-row>
+      <!--Aquí el contenido de la barra-->
+      <button (click)="cajon.toggle()" mat-icon-button >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>
+        INVENTARIO &nbsp;
+      </span>
+      <span>
+        <a mat-stroked-button routerLink="/login" *ngIf="_authService.loggedIn()==false">Ingresar</a>
+      </span>
+      <span>
+        <a mat-stroked-button routerLink="/login" *ngIf="_authService.loggedIn()" (click)="salir()">Salir</a>
+      </span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-sidenav-container class="contenido" >
+    <mat-sidenav style="min-width: 300px;" #cajon mode="side" opened="false" >
+      <!--Aquí van todos los mat-nav-list -->
+      <div *ngIf="_authService.loggedIn()">
+      <mat-accordion >
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title >
+              <mat-icon color="primary">style</mat-icon> &nbsp;  Admnistración
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <mat-nav-list >
+            <a mat-list-item routerLink='/usuario' *ngIf="_authService.loggedIn() && _authService.IsAdmin()">
+            Usuarios &nbsp;  <mat-icon color="primary">group</mat-icon>
+            </a>
+            <a mat-list-item routerLink="/categoria" *ngIf="_authService.loggedIn() && _authService.IsAdmin()">
+            Categorias &nbsp;  <mat-icon color="primary">inventory</mat-icon>
+            </a>
+            <a mat-list-item routerLink="/producto" *ngIf="_authService.loggedIn()">
+            Productos &nbsp;  <mat-icon color="primary"> store_mall_directory</mat-icon>
+            </a>
+       
+          </mat-nav-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <mat-accordion>
+        <mat-expansion-panel *ngIf="_authService.loggedIn() && _authService.IsAdmin()">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon color="primary">add_shopping_cart</mat-icon> &nbsp;  Compras
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <mat-nav-list>
+            <a mat-list-item routerLink="/compra" *ngIf="_authService.loggedIn() && _authService.IsAdmin()">
+              Compras &nbsp;  <mat-icon color="primary"> store_mall_directory</mat-icon>
+            </a>
+
+          </mat-nav-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon color="primary">shopping_cart</mat-icon> &nbsp;  Ventas
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-nav-list>
+            <a mat-list-item routerLink="/venta" *ngIf="_authService.loggedIn()">
+              Ventas &nbsp;  <mat-icon color="primary">inventory</mat-icon>
+              </a>
+              <a mat-list-item routerLink="/reporte" *ngIf="_authService.loggedIn() && _authService.IsAdmin()">
+                Reporte general &nbsp;  <mat-icon color="primary">inventory</mat-icon>
+                </a>
+            <a mat-list-item routerLink="/reporteventa" *ngIf="_authService.loggedIn() && _authService.IsAdmin()">
+              Reporte Ventas &nbsp;  <mat-icon color="primary">inventory</mat-icon>
+              </a>
+          </mat-nav-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon color="primary">production_quantity_limits</mat-icon> &nbsp;  Stock &nbsp;
+              <span style="background-color: red;" class="badge badge-pill badge-primary"*ngIf="totalProductos>0">+ {{totalProductos}}</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-nav-list>
+            <a mat-list-item routerLink="/stock" *ngIf="_authService.loggedIn()">
+              Control del Stock &nbsp;  <mat-icon color="primary">production_quantity_limits</mat-icon>
+              <span style="background-color: red;" class="badge badge-pill badge-primary" *ngIf="total>0">{{total}}</span>
+              </a>
+            <a mat-list-item routerLink="/stockDetalle" *ngIf="_authService.loggedIn() && _authService.IsAdmin()">
+              Detalle de Inventario &nbsp;  <mat-icon color="primary">inventory</mat-icon>
+              </a>
+              <a mat-list-item routerLink="/stockFecha" *ngIf="_authService.loggedIn() && _authService.IsAdmin()">
+                Movimiento de Stock &nbsp;  <mat-icon color="primary">inventory</mat-icon>
+                <span style="background-color: red;" class="badge badge-pill badge-primary" *ngIf="totalFecha>0">{{totalFecha}}</span>
+                </a>
+          </mat-nav-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+      </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <!--El contenido de la sección-->
+      <div >
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

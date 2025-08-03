@@ -1,0 +1,137 @@
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>PRODUCTOS</mat-card-title>
+      <mat-card-subtitle *ngIf="_authService.IsAdmin()">Agregar</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions *ngIf="_authService.IsAdmin()">
+      <button mat-fab color="primary" matTooltip="Agregue un Nuevo Producto"
+      [matTooltipDisabled]="disabled.value" (click)="openDialog(1,null)">
+      <mat-icon>add_business</mat-icon>
+      </button>
+    </mat-card-actions>
+    
+    <mat-card-content>
+
+      <table class="example-full-width" cellspacing="0">
+        <tr>
+          <td >
+             <button mat-fab color="primary" matTooltip="Buscar producto"
+             [matTooltipDisabled]="disabled.value" (click)="filtrar()"><mat-icon>search</mat-icon></button>
+          </td>
+          <td style="width: 100%; padding-top: 20px;">
+            <mat-form-field appearance="outline" style="width: 100%;">
+              <mat-label>Buscar</mat-label>
+              <input matInput placeholder="buscar producto" [formControl]="filtro">
+            </mat-form-field>
+          </td>
+          &nbsp;
+          
+        </tr>
+      </table>
+
+      <section class="example-container mat-elevation-z8" tabindex="0">
+        <div class="contenedorTabla table-responsive ">
+            <div class="mat-elevation-z8">
+                <table  mat-table [dataSource]="dataSource">
+
+                  <!-- ID Column -->
+                  <ng-container matColumnDef="Id">
+                    <th mat-header-cell *matHeaderCellDef> Id </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                  </ng-container>
+
+                  <!-- Precio Compra Column -->
+                  <ng-container matColumnDef="PrecioCompra">
+                    <th mat-header-cell *matHeaderCellDef> Precio Compra </th>
+                    <td mat-cell *matCellDef="let element"> {{element.precioCompra}}</td>
+                  </ng-container>
+
+                  <!-- Precio Venta Column -->
+                  <ng-container matColumnDef="PrecioVenta">
+                    <th mat-header-cell *matHeaderCellDef> Precio Venta </th>
+                    <td mat-cell *matCellDef="let element"> {{element.precioVenta}} </td>
+                  </ng-container>
+
+                  <!-- Marca Column -->
+                  <ng-container matColumnDef="Marca">
+                    <th mat-header-cell *matHeaderCellDef> Marca </th>
+                    <td mat-cell *matCellDef="let element"> {{element.marca}}</td>
+                  </ng-container>
+
+                   <!-- Descripcion Column -->
+                   <ng-container matColumnDef="Descripcion">
+                    <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+                    <td mat-cell *matCellDef="let element">{{element.descripcion}} </td>
+                  </ng-container>
+
+                    <!-- Stock Column -->
+                    <ng-container matColumnDef="Stock">
+                        <th mat-header-cell *matHeaderCellDef> Stock </th>
+                        <td mat-cell *matCellDef="let element">{{element.stock}} </td>
+                    </ng-container>
+
+                 
+
+                 <!-- Codigo Column -->
+                 <ng-container matColumnDef="Codigo">
+                    <th mat-header-cell *matHeaderCellDef> Codigo </th>
+                    <td mat-cell *matCellDef="let element">
+                      <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" (click)="openDialogCodigoBarra(element)">
+                        <mat-icon>insert_chart_outlined</mat-icon>
+                      </button>
+                     </td>
+                  </ng-container>
+
+                  <!-- Fecha Movimiento Column -->
+                 <ng-container matColumnDef="FechaMovimiento">
+                    <th mat-header-cell *matHeaderCellDef> Fecha Movimiento </th>
+                    <td mat-cell *matCellDef="let element">{{element.fechaMovimiento | date:'dd-MM-yyyy hh:mm a'}} </td>
+                  </ng-container>
+
+                   <!-- Categoria Column -->
+                 <ng-container matColumnDef="IdCategoria">
+                    <th mat-header-cell *matHeaderCellDef> Categoria </th>
+                    <td mat-cell *matCellDef="let element">{{element.idCategoriaNavigation.nombre}} </td>
+                  </ng-container>
+
+                   <!-- Acciones Column -->
+                   <ng-container matColumnDef="Acciones">
+                    <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                    <td mat-cell *matCellDef="let element">
+
+                      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                        <mat-icon>menu</mat-icon>
+                      </button>
+                      <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="openDialog(2,element)">
+                          <mat-icon>edit_note</mat-icon>
+                          <span>EDITAR</span>
+                        </button>
+                        <button mat-menu-item (click)="eliminar(element.id)">
+                          <mat-icon>delete_sweep</mat-icon>
+                          <span>ELIMINAR</span>
+                        </button>
+                      </mat-menu>
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+              </div>
+
+          </div>
+
+          <mat-paginator [length]="length"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="pageSizeOptions"
+          [pageIndex]="pageIndex"
+          (page)="handlePage($event)"
+          aria-label="Select page"
+          >
+          </mat-paginator>
+      </section>
+
+    </mat-card-content>
+  </mat-card>

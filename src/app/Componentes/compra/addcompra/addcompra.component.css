@@ -1,0 +1,30 @@
+
+
+table {
+  width: 100%;
+}
+
+.mat-form-field{
+  width:100%;
+}
+
+
+.mat-mdc-card-content:last-child {
+  padding-top: 15px;
+}
+
+
+.form-control {
+  display: -webkit-inline-box;
+  }
+
+
+  th{
+    vertical-align:middle;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  td{
+    vertical-align:middle;
+  }

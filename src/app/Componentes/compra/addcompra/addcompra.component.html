@@ -1,0 +1,153 @@
+<h2 mat-dialog-title>Crear Compra</h2>
+<mat-dialog-content class="mat-typography">
+
+<form [formGroup]="form" autocomplete="off" >
+
+
+  <br>
+
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Buscador de productos</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Ingrese Busqueda</mat-label>
+        <input matInput placeholder="Busqueda" [formControl]="producto">
+      </mat-form-field>
+      &nbsp;
+      <button mat-fab color="primary" matTooltip="Buscar una Categoria"
+      (click)="BuscarProducto()"><mat-icon>search</mat-icon></button>
+
+      <div  class="table-responsive table-bordered table-striped table-wrapper-scroll-y my-custom-scrollbar" *ngIf="listaProducto.length>0" >
+        <table style="text-align: center;" class="table table-dark table-hover">
+          <thead>
+            <tr>
+              <th>codigo</th>
+              <th>descripcion</th>
+              <th>marca</th>
+              <th>stock</th>
+              <th>precio Compra/th>
+            </tr>
+          </thead>
+            <tbody>
+              <tr *ngFor="let producto of listaProducto" (click)="seleccionProducto(producto)">
+                <td>{{producto.codigo}}</td>
+                <td>{{producto.descripcion}}</td>
+                <td>{{producto.marca}}</td>
+                <td>{{producto.stock}}</td>
+                <td>{{producto.precioCompra}}</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+
+
+    </mat-card-content>
+  </mat-card>
+  <br>
+
+
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Detalles Del Producto</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="table-responsive">
+        <table style="text-align: center;" *ngIf="productoSeleccionado">
+          <thead>
+              <tr>
+                <th>Descripcion</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Cantidad</th>
+                <th>Acciones</th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                {{productoSeleccionado.descripcion}} {{productoSeleccionado.marca}}
+              </td>
+              <td>
+                {{productoSeleccionado.precioCompra}}
+              </td>
+              <td>
+                {{productoSeleccionado.stock}}
+              </td>
+              <td>
+                 <input style="width: 70%;" type="number" class="form-control" placeholder="cantidad" [formControl]="cantidad">
+             </td>
+              <td>
+                <button mat-flat-button color="primary" (click)="agregarDetalle()">Agregar </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+
+  <br>
+
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Comprobante de Venta</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="table-responsive">
+        <table  style="text-align: center; " *ngIf="listadetalles.length>0"  class="table table-border table-hover">
+          <thead>
+            <tr>
+              <th>descripcion</th>
+              <th>Precio Unitario</th>
+              <th>Cantidad</th>
+              <th>Subtotal</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+            <tbody>
+              <tr *ngFor="let producto of listadetalles">
+                <td>{{producto.producto}}</td>
+                <td >{{producto.precioVenta}}</td>
+                <td >{{producto.cantidad}}</td>
+                <td >{{producto.subTotal}}</td>
+                <td>
+
+                  <button  *ngIf="this.idcompra==0" mat-icon-button color="basic" (click)="editarDetalle(producto)">
+                    <mat-icon>create</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="eliminarDetalle(producto)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+
+              </tr>
+              <tr>
+                <td colspan="4" style="text-align: right;">
+                  <strong>Total :  {{totalCompra}} Bs. </strong>
+                </td>
+                <td colspan="1" style="text-align: right;">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+
+    </mat-card-content>
+  </mat-card>
+
+</form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-flat-button color="primary" (click)="guardar()">Guardar Compra</button> &nbsp;
+</mat-dialog-actions>
+
+
+
