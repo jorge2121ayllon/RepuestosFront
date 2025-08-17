@@ -18,7 +18,7 @@ export class VentasComponent {
 
 
 
-  displayedColumns: string[] = ['id','nombreCliente','nit','celular','fecha', 'total','acciones'];
+  displayedColumns: string[] = ['id','nombreCliente','nit','celular','fecha', 'total','qr', 'efectivo','acciones'];
   metadata :any;
   ventas : any ;
 
@@ -36,7 +36,7 @@ export class VentasComponent {
     ) {
       this.paginator.itemsPerPageLabel = "Registros por página";
       if (localStorage.getItem("role")=="cajero") {
-        this.displayedColumns= ['id','nombreCliente','nit','celular','fecha', 'total'];
+        this.displayedColumns= ['id','nombreCliente','nit','celular','fecha', 'total', 'qr', 'efectivo'];
       }
     }
 

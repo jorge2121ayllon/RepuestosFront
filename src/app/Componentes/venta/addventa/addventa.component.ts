@@ -64,6 +64,8 @@ export class AddventaComponent {
           descuento : new FormControl(0),
           celular: new FormControl(''),
               nit: new FormControl(''),
+               qr: new FormControl(0),
+                efectivo: new FormControl(0),
         })
         //para el editar
       }else{
@@ -80,6 +82,8 @@ export class AddventaComponent {
           id: new FormControl(this.idventa),
           celular: new FormControl(''),
             nit: new FormControl(''),
+            qr: new FormControl(0),
+                efectivo: new FormControl(0),
         })
       }
 
@@ -104,6 +108,8 @@ export class AddventaComponent {
           this.form.controls['nombreCliente'].setValue(r.data.venta.nombreCliente)
           this.form.controls['total'].setValue(r.data.venta.total)
            this.form.controls['nit'].setValue(r.data.venta.nit)
+           this.form.controls['qr'].setValue(r.data.venta.qr)
+           this.form.controls['efectivo'].setValue(r.data.venta.efectivo)
           this.totalVenta = r.data.venta.total + r.data.venta.descuento;
           this.listadetalles = r.data.detalleVenta;
 

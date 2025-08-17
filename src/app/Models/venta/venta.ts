@@ -5,5 +5,8 @@ export interface Venta{
   nombreCliente : string;
   celular : string;
   nit : string;
+qr : number;
+efectivo : number;
   descuento : number;
 }
+

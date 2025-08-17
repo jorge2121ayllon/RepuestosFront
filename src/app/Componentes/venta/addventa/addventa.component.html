@@ -46,7 +46,14 @@
       </mat-card>
     </div>
 
-    
+
+
+
+
+
+
+
+
     <div class="col-md-12">
 
 
@@ -219,6 +226,38 @@
 
     </mat-card-content>
   </mat-card>
+
+
+
+  
+    <div class="col-md-12" *ngIf="listadetalles.length>0">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Detalles de pago</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="row">
+            
+        <div class="col-md-6"> 
+                  <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Total Qr o Transferencia</mat-label>
+                            <input type="number"  matInput placeholder="Pago Qr" formControlName="qr">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-6"> 
+                  <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Total Efectivo</mat-label>
+                            <input type="number"  matInput placeholder="Pago efectivo" formControlName="efectivo">
+                    </mat-form-field>
+                </div>
+        
+
+
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
 
 </form>
 </mat-dialog-content>
