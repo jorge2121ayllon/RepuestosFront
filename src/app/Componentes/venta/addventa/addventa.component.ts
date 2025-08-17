@@ -98,7 +98,7 @@ export class AddventaComponent {
     ObtenerVenta(){
       this.VentaService.getVenta(this.idventa).subscribe(
         r=>{
-          console.log(r)
+       
           this.form.controls['celular'].setValue(r.data.venta.celular)
           this.form.controls['descuento'].setValue(r.data.venta.descuento)
           this.form.controls['nombreCliente'].setValue(r.data.venta.nombreCliente)
@@ -178,7 +178,15 @@ export class AddventaComponent {
     {
       this.VentaService.ListaProducto(this.producto.value).subscribe(r => {
             this.listaProducto = r.data;
-            this.seleccionProducto(this.listaProducto[0])
+            if(this.listaProducto.length==0)
+            {
+              this.toastr.error('No se encontro ningun producto con ese nombre');
+            }
+            if(this.listaProducto.length>1)
+            {
+              this.toastr.warning('Se encontraron varios productos con ese nombre, seleccione uno de la lista');
+            }
+           
       })
     }
 

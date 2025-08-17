@@ -40,7 +40,7 @@ export class FormcategoriaComponent implements OnInit {
       Nombre: new FormControl('',[Validators.required, Validators.minLength(2)]),
       Descripcion: new FormControl('', Validators.required),
       Padre: new FormControl(false, Validators.required),
-      IdCategoria: new FormControl(0)
+      IdCategoria: new FormControl(1)
     });
   }
   //metodo para cargar el form para editarlo

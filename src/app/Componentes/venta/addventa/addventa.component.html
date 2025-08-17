@@ -10,7 +10,44 @@
 
   <div class="row">
 
-    <div class="col-md-5">
+
+     <div class="col-md-12">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Datos del cliente</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="row">
+            <div class="col-md-4"> 
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Nombre, Razon social</mat-label>
+                    <input matInput placeholder="nombre" formControlName="nombreCliente">
+
+                    <mat-error  *ngIf="form.controls['nombreCliente'].invalid">
+                      Nombre es requerido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4"> 
+              <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Celular</mat-label>
+                        <input type="text"  matInput placeholder="Celular" formControlName="celular">
+                </mat-form-field>
+            </div>
+
+             <div class="col-md-4"> 
+              <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Nit</mat-label>
+                        <input type="text"  matInput placeholder="Nit" formControlName="nit">
+                </mat-form-field>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    
+    <div class="col-md-12">
 
 
       <mat-card>
@@ -67,40 +104,7 @@
         </mat-card-content>
       </mat-card>
     </div>
-    <div class="col-md-7">
-      <mat-card>
-        <mat-card-header>
-          <mat-card-title>Datos del cliente</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <div class="row">
-            <div class="col-md-4"> 
-                <mat-form-field class="example-full-width" appearance="outline">
-                    <mat-label>Nombre, Razon social</mat-label>
-                    <input matInput placeholder="nombre" formControlName="nombreCliente">
-
-                    <mat-error  *ngIf="form.controls['nombreCliente'].invalid">
-                      Nombre es requerido
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="col-md-4"> 
-              <mat-form-field class="example-full-width" appearance="outline">
-                        <mat-label>Celular</mat-label>
-                        <input type="text"  matInput placeholder="Celular" formControlName="celular">
-                </mat-form-field>
-            </div>
-
-             <div class="col-md-4"> 
-              <mat-form-field class="example-full-width" appearance="outline">
-                        <mat-label>Nit</mat-label>
-                        <input type="text"  matInput placeholder="Nit" formControlName="nit">
-                </mat-form-field>
-            </div>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
+   
 
   </div>
 

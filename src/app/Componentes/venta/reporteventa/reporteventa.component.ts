@@ -43,7 +43,7 @@ export class ReporteventaComponent {
 
 
   cargarLista(){
-    this.CategoriaService.listaPadres(true).subscribe((resp:any) => {
+    this.CategoriaService.listaHijasIdPadre(1).subscribe((resp:any) => {
       this.categorias=resp.data;
     })
   }

@@ -7,6 +7,7 @@ import { VentaService } from './../../../Services/venta/venta.service';
 import { Component } from '@angular/core';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { PaginacionService } from 'src/app/Services/paginacion.service';
+import { CajaService } from 'src/app/Services/caja/caja.service';
 
 @Component({
   selector: 'app-ventas',
@@ -30,7 +31,7 @@ export class VentasComponent {
   pageSizeOptions: number[] = [5, 10,25, 100];
   pageIndex=0;
 
-  constructor(private toastr: ToastrService,public dialog: MatDialog,private VentaService : VentaService,private Router: Router,
+  constructor(private toastr: ToastrService,public dialog: MatDialog,private VentaService : VentaService,private Router: Router, private cajaService: CajaService,
     private PaginacionService: PaginacionService, private paginator: MatPaginatorIntl,
     ) {
       this.paginator.itemsPerPageLabel = "Registros por página";
@@ -86,16 +87,32 @@ export class VentasComponent {
 
   openDialog(opcion : number) {
 
-      const dialogRef =this.dialog.open(AddventaComponent, {
-        data: {id: opcion},
-        width: '90%',
-        height: '90%',
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        this.Ventas();
+    this.cajaService.getCajaAbierta().subscribe((resp:any) => {
+      let respuesta = resp;
+      if( respuesta == true ){
+        const dialogRef =this.dialog.open(AddventaComponent, {
+          data: {id: opcion , idalquiler : 0 },
+          width: '90%',
+          height: '90%',
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          this.Ventas();
+    
+    
+        });
+      }
+      
+    
+      else{
+        this.toastr.error("Debe abrir caja antes de realizar una venta")
+      }
 
 
-      });
+      })
+
+
+
+   
     }
 
 }

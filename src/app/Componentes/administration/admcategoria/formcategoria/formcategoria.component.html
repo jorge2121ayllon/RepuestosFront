@@ -19,26 +19,7 @@
               </mat-form-field>
               </label>
 
-            <label class="label">
-                <section class="example-section">
-                  <mat-checkbox class="example-margin" [labelPosition]="labelPosition" formControlName="Padre" (click)="actualizarCategoria()">Padre</mat-checkbox>
-                </section>
-            </label>
-            <label  class="label" *ngIf="categoria.get('Padre')!.value===false">
-
-              <mat-form-field appearance="outline" style="width: 100%;">
-                <mat-label>Categoria</mat-label>
-                <mat-select formControlName="IdCategoria"  (click)="actualizarCategoria()">
-                  <mat-option selected  [value]="0" disabled>
-                    Seleccione una categoria
-                  </mat-option>
-                  <mat-option selected  *ngFor="let obj of categorias" [value]="obj.id">
-                    {{obj.nombre}}
-                  </mat-option>
-                </mat-select>
-                <mat-hint align="end" *ngIf="categoria.get('IdCategoria')!.value===0 && categoria.get('Padre')!.value===false" style="color: red;">Campo Obligatorio</mat-hint>
-              </mat-form-field>
-            </label>
+           
           </form>
         </div>
       </div>

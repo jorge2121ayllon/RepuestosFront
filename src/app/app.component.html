@@ -66,6 +66,9 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <mat-nav-list>
+            <a mat-list-item routerLink="/caja" *ngIf="_authService.loggedIn()">
+              Caja &nbsp;  <mat-icon color="primary">inventory</mat-icon>
+              </a>
             <a mat-list-item routerLink="/venta" *ngIf="_authService.loggedIn()">
               Ventas &nbsp;  <mat-icon color="primary">inventory</mat-icon>
               </a>
