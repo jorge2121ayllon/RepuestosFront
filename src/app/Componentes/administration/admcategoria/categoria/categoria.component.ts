@@ -18,7 +18,7 @@ export class CategoriaComponent implements OnInit {
   categorias!:any[];//var para la lista de categorias
   categoriasTabla!:any[];//var para la lista de categorias para mostrar los nombres en la tabla de idCategoria
   token!:any;//var para el token
-  displayedColumns: string[] = ['Id', 'Nombre', 'Descripcion', 'Padre', 'IdCategoria', 'Acciones'];//columnas de la tabla
+  displayedColumns: string[] = ['Id', 'Nombre', 'Descripcion', 'Acciones'];//columnas de la tabla
   dataSource!:any;//var para agregar datos a la tabla
   disabled = new FormControl(false);//var para el tooltip
   @ViewChild(MatPaginator)paginatorr!: MatPaginator ;//var para la paginacion
