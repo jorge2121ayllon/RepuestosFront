@@ -62,6 +62,8 @@ import { StockFechaComponent } from './Componentes/stock/stock-fecha/stock-fecha
 import { StockDetalleComponent } from './Componentes/stock/stock-detalle/stock-detalle.component';
 import { ReporteCajaComponent } from './Componentes/caja/reporte-caja/reporte-caja.component';
 import { DatePipe } from '@angular/common';
+import { EgresosComponent } from './componentes/egreso/egresos/egresos.component';
+import { AddegresoComponent } from './componentes/egreso/addegreso/addegreso.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,6 +88,8 @@ import { DatePipe } from '@angular/common';
     StockFechaComponent,
     StockDetalleComponent,
     ReporteCajaComponent,
+    EgresosComponent,
+    AddegresoComponent,
   ],
   imports: [
 

@@ -81,12 +81,26 @@ export class VentaService {
         let reporte : ReporteCaja[] = [];
         reporte = r as any;
 
+        console.log(reporte)
+
         let fechaapertura = new Date(obj.fechaApertura).toLocaleString("en-US");
         let fechacierre = new Date(obj.fechaCierre).toLocaleString("en-US");
 
         let vendido=obj.cierre - obj.apertura;
         let apertura= obj.apertura;
         let total = vendido + apertura;
+        let qr =0 ;
+        let efectivo =0 ;
+
+        if(reporte.length>0 ){  
+          qr = reporte[0].qr;
+        }
+
+           if(reporte.length>0 ){ 
+       
+           efectivo =reporte[0].efectivo
+        }
+
 
         let reporteLista = "";
         reporte.forEach(element => {
@@ -104,10 +118,10 @@ export class VentaService {
         "tr{ text-align: center;}"+
         ".table{width : 100%}"+
         "</style>"+
-        "<h1  style='  text-align: center; font-size: xx-large; ; font-family: "+'Bungee Inline'+", sans-serif;' class='medio'>INVENTARIO</h1>"+
+        "<h1  style='  text-align: center; font-size: x-large; ; font-family: "+'Bungee Inline'+", sans-serif;' class='medio'>INVENTARIO</h1>"+
         "<table border style='width:100%'>"+
-        "<TR><TH>Fecha Apertura</TH ><TH>Fecha Cierre</TH ><TH>Apertura Caja</TH ><TH >Total Vendido</TH ><TH >Total Caja</TH ></TR>"+
-        "<tr><td>" + fechaapertura +"</td><td>" + fechacierre +"</td><td>" + apertura +" Bs.</td><td>"+vendido+" Bs.</td><td>"+total+" Bs.</td> </tr></table>"
+        "<TR><TH>Fecha Apertura</TH ><TH>Fecha Cierre</TH ><TH>Apertura Caja</TH ><TH >Total Vendido</TH ><TH >Total Caja</TH ><TH >Qr</TH ><TH >Efectivo</TH ></TR>"+
+        "<tr><td>" + fechaapertura +"</td><td>" + fechacierre +"</td><td>" + apertura +" Bs.</td><td>"+vendido+" Bs.</td><td>"+total+" Bs.</td><td>"+qr+" Bs.</td> <td>"+efectivo+" Bs.</td>  </tr></table>"
         +"<br><table border style='width:100%'><TR><TH>Categoria</TH ><TH>Total Vendido</TH ><TH >Descuentos Realizados </TH ></TR>"+ reporteLista;
 
 
@@ -175,7 +189,7 @@ export class VentaService {
     ".factura {table-layout: fixed;}"+
     ".fact-info > div > h5 {font-weight: bold;}"+
     ".factura {table-layout: fixed;}.fact-info > div > h5 { font-weight: bold;}.factura > thead {border-top: solid 3px #000;border-bottom: 3px solid #000;}.factura > thead > tr > th:nth-child(2), .factura > tbod > tr > td:nth-child(2) {  width: 300px;}"+
-    ".factura > thead > tr > th:nth-child(n+3) {  text-align: center;}.factura > tbody > tr > td:nth-child(n+3) {text-align: center;}.factura > tfoot > tr > th, .factura > tfoot > tr > th:nth-child(n+3) {  font-size: 24px;text-align: center;}.cond {border-top: solid 2px #000;} "+
+    ".factura > thead > tr > th:nth-child(n+3) {  text-align: center;}.factura > tbody > tr > td:nth-child(n+3) {text-align: center;}.factura > tfoot > tr > th, .factura > tfoot > tr > th:nth-child(n+3) {  font-size: 16px;text-align: center;}.cond {border-top: solid 2px #000;} "+
     ".factura > thead {border-top: solid 3px #000;border-bottom: 3px solid #000;}.factura > thead > tr > th:nth-child(2), .factura > tbod > tr > td:nth-child(2) {width: 200px;} .factura > thead > tr > th:nth-child(n+3) {text-align: center;} .factura > tbody > tr > td:nth-child(n+3) {text-align: center;} .factura > tfoot > tr > th, .factura > tfoot > tr > th:nth-child(n+3) {font-size: 24px;text-align: center;} medio{text-align: center;color: #000;margin: 50px;} .cond {border-top: solid 2px #000;} * {font-family: 'Arbutus Slab', sans-serif;} h1 {   margin: 0 0 0px;} .mat-typography p {margin: 0 0 12px;}"+
     "</style>"+
     "<div id='app' class='col-11' style='margin: 1px; width: 100%;'>"+

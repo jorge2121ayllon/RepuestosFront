@@ -1,0 +1,71 @@
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>Egresos</mat-card-title>
+      <mat-card-subtitle>Agregar un nuevo egreso</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+      <button mat-fab color="primary" matTooltip="Agregar un nuevo usuario para el manejo sistema"
+       (click)="abrirModal()">
+      <mat-icon>add_business</mat-icon>
+      </button>
+    </mat-card-actions>
+  <br>
+    
+ <mat-card-content>
+
+
+<div class="contenedorTabla ">
+        <div class="mat-elevation-z8 table-responsive ">
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> ID </th>
+    <td mat-cell *matCellDef="let e"> {{e.id}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="nombre">
+    <th mat-header-cell *matHeaderCellDef> Nombre </th>
+    <td mat-cell *matCellDef="let e"> {{e.nombre}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="costo">
+    <th mat-header-cell *matHeaderCellDef> Costo </th>
+    <td mat-cell *matCellDef="let e"> {{e.costo}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="fecha">
+    <th mat-header-cell *matHeaderCellDef> Fecha </th>
+    <td mat-cell *matCellDef="let e"> {{e.fecha | date:'dd/MM/yyyy'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="acciones">
+    <th mat-header-cell *matHeaderCellDef> Acciones </th>
+    <td mat-cell *matCellDef="let e">
+      <button mat-icon-button color="accent" (click)="abrirModal(e)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="eliminar(e.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [length]="length"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="pageSizeOptions"
+          [pageIndex]="pageIndex"
+          (page)="handlePage($event)"
+          aria-label="Select page">
+          </mat-paginator>
+
+
+
+        </div>
+    </div>
+    </mat-card-content>
+  </mat-card>

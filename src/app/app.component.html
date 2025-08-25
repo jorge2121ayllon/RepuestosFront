@@ -35,9 +35,14 @@
             <a mat-list-item routerLink="/categoria" *ngIf="_authService.loggedIn() && _authService.IsAdmin()">
             Categorias &nbsp;  <mat-icon color="primary">inventory</mat-icon>
             </a>
+              <a mat-list-item routerLink="/egreso" *ngIf="_authService.loggedIn() && _authService.IsAdmin()">
+            Egresos &nbsp;  <mat-icon color="primary">inventory</mat-icon>
+            </a>
             <a mat-list-item routerLink="/producto" *ngIf="_authService.loggedIn()">
             Productos &nbsp;  <mat-icon color="primary"> store_mall_directory</mat-icon>
             </a>
+
+            
        
           </mat-nav-list>
         </mat-expansion-panel>

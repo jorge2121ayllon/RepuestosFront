@@ -19,6 +19,8 @@ import { ReporteComponent } from './Componentes/venta/reporte/reporte.component'
 import { ErrorPermisosComponent } from './Componentes/error-permisos/error-permisos.component';
 import { StockDetalleComponent } from './Componentes/stock/stock-detalle/stock-detalle.component';
 import { ReporteCajaComponent } from './Componentes/caja/reporte-caja/reporte-caja.component';
+import { EgresoService } from './Services/egreso.service';
+import { EgresosComponent } from './componentes/egreso/egresos/egresos.component';
 const routes: Routes = [
   { path: 'error', component: ErrorPermisosComponent, pathMatch: "full" },
   { path: 'login', component: LoginComponent, pathMatch: "full" },
@@ -40,6 +42,7 @@ const routes: Routes = [
   { path: 'stockDetalle', component: StockDetalleComponent, pathMatch: "full",canActivate: [AdminAuthGuard] },
   { path: 'stockFecha', component: StockFechaComponent, pathMatch: "full",canActivate: [AdminAuthGuard] },
   { path: 'reporteventa', component: ReporteventaComponent, pathMatch: "full",canActivate: [AdminAuthGuard] },
+   { path: 'egreso', component: EgresosComponent, pathMatch: "full",canActivate: [AdminAuthGuard] },
 ];
 
 

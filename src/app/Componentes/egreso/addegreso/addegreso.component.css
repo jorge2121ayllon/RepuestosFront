@@ -1,0 +1,21 @@
+
+
+table {
+  width: 100%;
+}
+
+.full-width{
+  width:100%;
+}
+
+
+.mat-mdc-card-content:last-child {
+  padding-top: 15px;
+}
+
+
+.form-control {
+  display: -webkit-inline-box;
+  }
+
+

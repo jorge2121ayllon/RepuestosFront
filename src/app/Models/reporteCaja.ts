@@ -5,4 +5,5 @@ export interface ReporteCaja{
   categoriaPadre : string;
   qr : number;
   efectivo : number;
+  
 }

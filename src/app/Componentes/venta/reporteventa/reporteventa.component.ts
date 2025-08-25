@@ -20,6 +20,7 @@ export class ReporteventaComponent {
   vendidoTotal = 0;
   descuento = 0;
   Error = 0;
+  egresos = 0;
 
   categorias! : any[];
 
@@ -60,14 +61,17 @@ export class ReporteventaComponent {
       this.inversionTotal = 0;
       this.vendidoTotal = 0;
       this.descuento = 0;
+     
 
 
       this.VentaService.ReporteVentas( this.form.value.inicio,this.form.value.fin,this.form.value.IdCategoria).subscribe(
         r=>{
           this.listaReporte = r as any;
 
+          console.log(this.listaReporte);
           if(this.listaReporte.length>0)
           {
+            this.egresos = this.listaReporte[0].egresos?.valueOf() || 0;
             this.Error=0;
             this.listaReporte.forEach(element => {
 

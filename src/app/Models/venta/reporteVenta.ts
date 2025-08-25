@@ -8,4 +8,6 @@ export class ReporteVenta{
   totalGanancia? : number;
   descripcion?:string;
   descuento?: number;
+  egresos?: number;
+
 }
