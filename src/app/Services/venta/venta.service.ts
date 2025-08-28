@@ -89,6 +89,8 @@ export class VentaService {
         let vendido=obj.cierre - obj.apertura;
         let apertura= obj.apertura;
         let total = vendido + apertura;
+         let descuentoServicio = reporte[0].descuentoServicio;
+          let precioServicio = reporte[0].precioServicio - descuentoServicio;
         let qr =0 ;
         let efectivo =0 ;
 
@@ -109,6 +111,8 @@ export class VentaService {
         });
         ;
 
+
+        reporteLista = reporteLista + "<tr><td>Servicios</td><td>"+precioServicio+" Bs.</td><td>"+descuentoServicio+" Bs.</td> </tr>"
 
         let imprimir=
         "<!doctype html><html lang='en'><head><meta charset='utf-8'><title>Almacen Digital</title><base href='/'><meta name='viewport' content='width=device-width, initial-scale=1'><link rel='icon' type='image/x-icon' href='favicon.ico'><link rel='preconnect' href='https://fonts.gstatic.com'><link href='https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap' rel='stylesheet'><link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'><link href='https://fonts.googleapis.com/css?family=Bungee Inline' rel='stylesheet' type='text/css'><link href='https://fonts.googleapis.com/css?family=Corinthia'rel='stylesheet' type='text/css'><link href='https://fonts.googleapis.com/css?family=Arbutus' rel='stylesheet' type='text/css'></head><body class='mat-typography'>"+
@@ -155,13 +159,13 @@ export class VentaService {
     let lista ="";
     let descuento = "";
 
-    if(venta.venta.descuento>0)
+    if(venta.venta.descuentoPrecio>0)
     { descuento =
     "<tr >"+
     "<th></th>"+
     "<th></th>"+
     "<th>Descuento</th>"+
-    "<th>"+venta.venta.descuento+"</th></tr>"
+    "<th>"+venta.venta.descuentoPrecio+"</th></tr>"
     }
 
 

@@ -66,6 +66,10 @@ export class AddventaComponent {
               nit: new FormControl(''),
                qr: new FormControl(0),
                 efectivo: new FormControl(0),
+                 servicio: [false],   // checkbox
+
+  precio: [0],         // decimal
+    descuentoPrecio : new FormControl(0),
         })
         //para el editar
       }else{
@@ -79,11 +83,14 @@ export class AddventaComponent {
           nombreCliente: new FormControl('',Validators.required),
           total : new FormControl(0),
           descuento : new FormControl(0),
+        
           id: new FormControl(this.idventa),
           celular: new FormControl(''),
             nit: new FormControl(''),
             qr: new FormControl(0),
                 efectivo: new FormControl(0),
+  precio: [0],         // decimal
+    descuentoPrecio : new FormControl(0),
         })
       }
 
@@ -170,7 +177,7 @@ export class AddventaComponent {
             }
         }
         else{
-          this.toastr.error('Ingrese una cantidad mayor a 0 para agregar al carrito !');
+          this.toastr.error('Ing  rese una cantidad mayor a 0 para agregar al carrito !');
         }
 
       } else{
@@ -178,6 +185,12 @@ export class AddventaComponent {
       }
 
 
+
+      if ( this.form.value.servicio === true) {
+        // Si es un servicio, deshabilitar el campo de descuento
+        this.totalVenta = this.form.value.precio - this.form.value.descuentoPrecio;
+        
+      }
     }
 
     BuscarProducto()

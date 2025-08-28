@@ -7,6 +7,10 @@ export interface Venta{
   nit : string;
 qr : number;
 efectivo : number;
-  descuento : number;
+  descuentoPrecio : number;
+ precio : number;
+  
+
+
 }
 

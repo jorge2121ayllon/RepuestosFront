@@ -41,13 +41,40 @@
                         <input type="text"  matInput placeholder="Nit" formControlName="nit">
                 </mat-form-field>
             </div>
+
+
+        <div class="row mt-3">
+          <div class="col-md-4">
+            <mat-checkbox formControlName="servicio">Servicio</mat-checkbox>
+          </div>
+        </div>
+
+        <!-- Campos que aparecen al marcar Servicio -->
+        <div class="row mt-3" *ngIf="form.get('servicio')?.value">
+           <div class="col-md-6">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Precio</mat-label>
+              <input type="number" matInput placeholder="0.00" formControlName="precio" step="0.01" />
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Descuento</mat-label>
+              <input type="number" matInput placeholder="0.00" formControlName="descuentoPrecio" step="0.01" />
+            </mat-form-field>
+          </div>
+
+         
+
+        </div>
           </div>
         </mat-card-content>
       </mat-card>
     </div>
 
 
-
+    <br>
 
 
 
@@ -132,7 +159,7 @@
                 <th class="espacio">Precio</th>
                 <th class="espacio">Stock</th>
                 <th class="espacio">Cantidad</th>
-                <th class="espacio">Descuento Bs</th>
+                <th *ngIf="!form.get('servicio')?.value"  class="espacio">Descuento Bs</th>
                 <th class="espacio">Acciones</th>
               </tr>
           </thead>
@@ -150,7 +177,8 @@
               <td>
                  <input style="width: 70%;" type="number" class="form-control" placeholder="cantidad" [formControl]="cantidad">
              </td>
-             <td>
+             <td *ngIf="!form.get('servicio')?.value">
+               <!-- Campo de descuento solo visible si es servicio -->
               <input type="number" style="width: 70%" class="form-control" placeholder="descuento" formControlName="descuento">
             </td>
 
@@ -181,24 +209,24 @@
         <table  style="text-align: center; " *ngIf="listadetalles.length>0"  class="table table-hover">
           <thead>
             <tr>
-              <th>descripcion</th>
-              <th>Precio Unitario</th>
-              <th>Cantidad</th>
-              <th>Descuento</th>
-              <th>Subtotal</th>
-              <th>Subtotal C/D</th>
-              <th>Acciones</th>
+              <th >descripcion</th>
+              <th *ngIf="!form.get('servicio')?.value">Precio Unitario</th>
+              <th >Cantidad</th>
+              <th *ngIf="!form.get('servicio')?.value">Descuento</th>
+              <th *ngIf="!form.get('servicio')?.value">Subtotal</th>
+              <th *ngIf="!form.get('servicio')?.value">Subtotal C/D</th>
+              <th *ngIf="!form.get('servicio')?.value">Acciones</th>
             </tr>
           </thead>
             <tbody>
               <tr *ngFor="let producto of listadetalles">
                 <td>{{producto.producto}}</td>
-                <td >{{producto.precioVenta}} Bs.</td>
+                <td *ngIf="!form.get('servicio')?.value">{{producto.precioVenta}} Bs.</td>
                 <td >{{producto.cantidad}}</td>
-                <td >{{producto.descuento}} Bs.</td>
-                <td *ngIf="producto.descuento && producto.subTotal">{{producto.subTotal + producto.descuento}} Bs.</td>
-                <td *ngIf="!producto.descuento">{{producto.subTotal}} Bs.</td>
-                <td >{{producto.subTotal}} Bs.</td>
+                <td *ngIf="!form.get('servicio')?.value">{{producto.descuento}} Bs.</td>
+                <td  *ngIf="producto.descuento && producto.subTotal && !form.get('servicio')?.value">{{producto.subTotal + producto.descuento}} Bs.</td>
+                <td *ngIf="!producto.descuento && !form.get('servicio')?.value">{{producto.subTotal}} Bs.</td>
+                <td *ngIf="!form.get('servicio')?.value">{{producto.subTotal}} Bs.</td>
 
                 <td>
 

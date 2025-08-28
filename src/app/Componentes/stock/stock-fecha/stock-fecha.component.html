@@ -38,7 +38,7 @@
         <h3 align="center" >Fecha del Último Movimiento - Fecha Actual</h3>
         <mat-form-field appearance="outline" style="width: 100%;">
             <mat-label>Rango de Fechas</mat-label>
-            <mat-date-range-input [rangePicker]="picker">
+            <mat-date-range-input [rangePicker]="picker" disabled="true">
               <input matStartDate placeholder="Fecha Ult. Mov" [formControl]="fechaMovimiento">
               <input matEndDate placeholder="Fecha Actual" [formControl]="fechaActual">
             </mat-date-range-input>

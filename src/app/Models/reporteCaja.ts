@@ -5,5 +5,7 @@ export interface ReporteCaja{
   categoriaPadre : string;
   qr : number;
   efectivo : number;
+  descuentoServicio : number;
+  precioServicio : number;
   
 }
