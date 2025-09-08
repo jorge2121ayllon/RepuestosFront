@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { PaginacionService } from 'src/app/Services/paginacion.service';
 import { CajaService } from 'src/app/Services/caja/caja.service';
+import { ReciboComponent } from '../../recibos/recibo/recibo.component';
 
 @Component({
   selector: 'app-ventas',
@@ -18,7 +19,7 @@ export class VentasComponent {
 
 
 
-  displayedColumns: string[] = ['id','nombreCliente','nit','celular','fecha', 'total','qr', 'efectivo','acciones'];
+  displayedColumns: string[] = ['id','nombreCliente','nit','celular','fecha','recibo', 'total','qr', 'efectivo','acciones'];
   metadata :any;
   ventas : any ;
 
@@ -113,6 +114,17 @@ export class VentasComponent {
 
 
    
+    }
+
+    openRecibos(obj:any){
+      const dialogRef =this.dialog.open(ReciboComponent, {
+          data: { venta : obj },
+          width: '90%',
+          height: '90%',
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          this.Ventas();
+        });
     }
 
 }

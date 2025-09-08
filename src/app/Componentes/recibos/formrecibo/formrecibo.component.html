@@ -1,0 +1,36 @@
+<h1 mat-dialog-title>RECIBO DE LA VENTA N° {{numeroVenta}}</h1>
+<div mat-dialog-content>
+    <div class="body-content">
+        <div class="module">
+          <form class="form" novalidate [formGroup]="recibo">
+              <label class="label">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label>Ingrese El Cliente</mat-label>
+                  <input matInput placeholder="Nombre" formControlName="Cliente">
+                  <mat-hint align="end" *ngIf="recibo.get('Cliente')!.value===''" style="color: red;">Campo Obligatorio</mat-hint>
+                </mat-form-field>
+              </label>
+        
+            <label class="label">
+              <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Ingrese La Descripcion</mat-label>
+                <input matInput placeholder="Descripcion" formControlName="Descripcion">
+              </mat-form-field>
+            </label>
+
+            <label class="label">
+              <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Ingrese El Total</mat-label>
+                <input matInput placeholder="Total" formControlName="Total">
+                <mat-hint align="end" *ngIf="recibo.get('Total')!.value===''" style="color: red;">Campo Obligatorio</mat-hint>
+              </mat-form-field>
+            </label>
+
+          </form>
+        </div>
+      </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>CERRAR</button>
+  <button mat-raised-button color="primary" type="submit" [disabled]="recibo.invalid" (click)="guardar()">Guardar</button>
+</div>

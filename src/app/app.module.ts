@@ -64,6 +64,8 @@ import { ReporteCajaComponent } from './Componentes/caja/reporte-caja/reporte-ca
 import { DatePipe } from '@angular/common';
 import { EgresosComponent } from './componentes/egreso/egresos/egresos.component';
 import { AddegresoComponent } from './componentes/egreso/addegreso/addegreso.component';
+import { ReciboComponent } from './Componentes/recibos/recibo/recibo.component';
+import { FormreciboComponent } from './Componentes/recibos/formrecibo/formrecibo.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -90,6 +92,8 @@ import { AddegresoComponent } from './componentes/egreso/addegreso/addegreso.com
     ReporteCajaComponent,
     EgresosComponent,
     AddegresoComponent,
+    ReciboComponent,
+    FormreciboComponent,
   ],
   imports: [
 
