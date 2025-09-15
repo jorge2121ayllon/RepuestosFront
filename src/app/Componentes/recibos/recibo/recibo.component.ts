@@ -26,25 +26,31 @@ recibos!:any[];//var para la lista de categorias
   @ViewChild(MatPaginator)paginatorr!: MatPaginator ;//var para la paginacion
   metadata :any;//var para la paginacion
   length = 100;//var  para MatPaginator Inputs
-  pageSize = 5;//var  para MatPaginator Inputs
+  pageSize = 25;//var  para MatPaginator Inputs
   pageSizeOptions: number[] = [5, 10,25, 100];//var  para MatPaginator Inputs
   pageIndex:number=0;//var  para MatPaginator Inputs
   filtro = new FormControl();//var para el campo de filtro
   respuesta!:any//vara para refrescar la lista luego de regresar del formulario
   numeroVenta=0;
-
+ venta=<any>{};//vara para almacenar la venta que llega en el data  
   //
   cliente="";
   fecha=null;
   descripcion="";
   total=0;
+
+
+  totalpagar = 0;
+  totalpagado = 0;
+  totalpendiente = 0;
   //
   constructor(public dialog: MatDialog,private service:ReciboService,private PaginacionService: PaginacionService, private paginator: MatPaginatorIntl
     ,@Inject(MAT_DIALOG_DATA) public data: any,public dialogg: MatDialog, public dialogRef: MatDialogRef<VentasComponent>
   ) {}
   
   ngOnInit(): void {
-    this.numeroVenta=this.data.venta.id;
+    
+    console.log(this.data);
     this.token=localStorage.getItem('token');//para almacenar el token
     this.PaginacionService.Filtro.filter='';//para mandar el filtro a la tabla
     this.PaginacionService.Filtro.PageSize=5;// para el tamaño de la paginacion
@@ -54,31 +60,66 @@ recibos!:any[];//var para la lista de categorias
       this.cargarLista(this.token);
     }
     this.cargarLista(this.token);
+
+    console.log(this.data.venta);
+     this.venta = this.data.venta;
+     this.totalpagar = this.venta.total;
+      this.totalpagado = this.venta.qr + this.venta.efectivo;
+      this.totalpendiente = this.totalpagar - this.totalpagado;
   }
 
  //metodo para abrir el modal
  openDialog(tipo:number,obj:any) {
-  if(tipo===1){
+
+  if(this.totalpendiente>0){
+     if(tipo===1){
     const dialogRef =this.dialog.open(FormreciboComponent, {
       data: {id: 0, obj: this.data.venta.id},
     });
-    dialogRef.afterClosed().subscribe(result => {
+   dialogRef.afterClosed().subscribe((result: number) => {
+
+    if(result>0){
+      this.totalpagar =  this.totalpagar;
+      this.totalpagado += Number(result);
+      this.totalpendiente =  Number(this.totalpagar) -  Number(this.totalpagado);
       this.cargarLista(this.token);
+    }
+    
+      
     });
   }
   if(tipo===2){
     const dialogRef =this.dialog.open(FormreciboComponent, {
       data: {id: obj.id, obj: obj},
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(result => {;
+
+      
+         if(!result){
+      this.totalpagar =  this.totalpagar;
+      this.totalpagado += Number(result);
+      this.totalpendiente =  Number(this.totalpagar) -  Number(this.totalpagado);
       this.cargarLista(this.token);
+    }
+    
+
     });
   }
+  }
+  else{
+    alert("El total ya esta pagado");
+  }
+
  
 }
 //metodo para cargar la lista aqui se manda el id de la venta que llega en el data
 cargarLista(token:string){
   this.service.lista(token, this.data.venta.id).subscribe((resp:any) => {
+
+    this.numeroVenta=this.data.venta.id;
+   
+    
+
     this.recibos=resp.data;
     this.dataSource = new MatTableDataSource<Categoria>(this.recibos); //cargando la lista en la tabla
     //this.dataSource.paginator = this.paginator; //paginator

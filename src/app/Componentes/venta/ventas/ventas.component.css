@@ -11,5 +11,9 @@ th.mat-mdc-header-cell {
 
 
 
+.fila-roja {
+  background-color: #ffcccc !important; /* rojo claro */
+  color: #660000 !important;            /* texto rojo oscuro */
+}
 
 

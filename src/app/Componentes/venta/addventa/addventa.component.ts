@@ -67,6 +67,7 @@ export class AddventaComponent {
                qr: new FormControl(0),
                 efectivo: new FormControl(0),
                  servicio: [false],   // checkbox
+                 credito: [false], 
 
   precio: [0],         // decimal
     descuentoPrecio : new FormControl(0),
@@ -78,7 +79,8 @@ export class AddventaComponent {
           //esto para el detalle de venta
           buscadorProducto: new FormControl(''),
           cantidad : new FormControl(1),
-
+          servicio: [false], 
+           credito: [false], 
           //para la venta
           nombreCliente: new FormControl('',Validators.required),
           total : new FormControl(0),
@@ -89,8 +91,8 @@ export class AddventaComponent {
             nit: new FormControl(''),
             qr: new FormControl(0),
                 efectivo: new FormControl(0),
-  precio: [0],         // decimal
-    descuentoPrecio : new FormControl(0),
+         precio: [0],         // decimal
+        descuentoPrecio : new FormControl(0),
         })
       }
 
@@ -117,7 +119,11 @@ export class AddventaComponent {
            this.form.controls['nit'].setValue(r.data.venta.nit)
            this.form.controls['qr'].setValue(r.data.venta.qr)
            this.form.controls['efectivo'].setValue(r.data.venta.efectivo)
-          this.totalVenta = r.data.venta.total + r.data.venta.descuento;
+            this.form.controls['servicio'].setValue(r.data.venta.servicio)
+            this.form.controls['credito'].setValue(r.data.venta.credito)
+
+            
+          this.totalVenta = r.data.venta.total;
           this.listadetalles = r.data.detalleVenta;
 
           //sirve para el subtotal del producto
@@ -262,6 +268,7 @@ export class AddventaComponent {
         if(this.idventa==0){
           if (this.form.valid && this.totalVenta>0)
           {
+            
             this.totalVenta = this.totalVenta - this.form.value.descuento;
             this.form.value.total = this.totalVenta;
 
@@ -269,13 +276,19 @@ export class AddventaComponent {
             this.venta.detalleVenta=this.listadetalles;
             this.venta.venta=this.form.value;
 
-            
-            this.VentaService.add(this.venta).subscribe(r => {
+
+            if (!this.venta.venta.credito && (this.venta.venta.qr + this.venta.venta.efectivo) != this.venta.venta.total) {
+              this.toastr.error('Los pagos son menores al total!');
+            } 
+            else{ 
+              this.VentaService.add(this.venta).subscribe(r => {
               this.toastr.success('Venta exitosa');
               this.venta.venta.id = r.data.id;
               this.dialogRef.close();
               this.VentaService.imprimirFormato(this.venta);
             })
+             }
+            
           }
           else{
             this.toastr.error('Porfavor complete la venta !');
@@ -288,15 +301,29 @@ export class AddventaComponent {
       if(this.idventa>0){
         if (this.form.valid && this.totalVenta>0)
         {
+          //this.totalVenta = this.totalVenta + this.form.value.descuento;
+          if(this.form.value.descuento>0) {
           this.form.value.total = this.totalVenta -  this.form.value.descuento;
-
+          } else {
+            this.form.value.total = this.totalVenta;
+          }
+         
+     
           this.venta.detalleVenta=this.listadetalles;
           this.venta.venta=this.form.value;
 
-          this.VentaService.update(this.venta).subscribe(r => {
-            this.toastr.success('edito exitosamente la venta');
-            this.dialogRef.close();
-          })
+if (!this.venta.venta.credito && (this.venta.venta.qr + this.venta.venta.efectivo) != this.venta.venta.total) {
+  this.toastr.error('Los pagos son menores al total!');
+} else {
+  this.VentaService.update(this.venta).subscribe(r => {
+    this.toastr.success('Editó exitosamente la venta');
+    this.dialogRef.close();
+    this.VentaService.imprimirFormato(this.venta);
+  });
+}
+
+     
+        
         }
         else{
           this.toastr.error('Porfavor complete la venta !');

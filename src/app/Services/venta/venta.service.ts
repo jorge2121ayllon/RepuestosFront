@@ -73,81 +73,139 @@ export class VentaService {
   }
 
 
-  ReporteCaja(obj : any ){
-    var respuesta = this.http.get<Response>(this.baseUrl+"/ReporteCaja" + "?idCaja="+ obj.id);
-    console.log()
-    respuesta.subscribe(
-      r=>{
-        let reporte : ReporteCaja[] = [];
-        reporte = r as any;
+ ReporteCaja(obj: any) {
+  var respuesta = this.http.get<Response>(this.baseUrl + "/ReporteCaja?idCaja=" + obj.id);
 
-        console.log(reporte)
+  respuesta.subscribe(r => {
+    let reporte: ReporteCaja[] = r as any;
 
-        let fechaapertura = new Date(obj.fechaApertura).toLocaleString("en-US");
-        let fechacierre = new Date(obj.fechaCierre).toLocaleString("en-US");
+    // Variables seguras
+    let descuentoServicio = 0;
+    let deuda = 0;
+    let precioServicio = 0;
+    let qr = 0;
+    let efectivo = 0;
 
-        let vendido=obj.cierre - obj.apertura;
-        let apertura= obj.apertura;
-        let total = vendido + apertura;
-         let descuentoServicio = reporte[0].descuentoServicio;
-          let precioServicio = reporte[0].precioServicio - descuentoServicio;
-        let qr =0 ;
-        let efectivo =0 ;
+    if (reporte.length > 0) {
+      descuentoServicio = reporte[0].descuentoServicio ?? 0;
+      deuda = reporte[0].deuda ?? 0;
+      precioServicio = (reporte[0].precioServicio ?? 0) - descuentoServicio;
+      qr = reporte[0].qr ?? 0;
+      efectivo = reporte[0].efectivo ?? 0;
+    }
 
-        if(reporte.length>0 ){  
-          qr = reporte[0].qr;
-        }
+    // Fechas
+    let fechaapertura = new Date(obj.fechaApertura).toLocaleString("es-BO");
+    let fechacierre = new Date(obj.fechaCierre).toLocaleString("es-BO");
 
-           if(reporte.length>0 ){ 
-       
-           efectivo =reporte[0].efectivo
-        }
+    // Totales
+    let vendido = obj.cierre - obj.apertura;
+    let apertura = obj.apertura;
+    let total = vendido + apertura;
+
+    // Lista detalle por categorías
+    let reporteLista = reporte.map(element =>
+      `<tr>
+        <td>${element.categoriaPadre}</td>
+        <td>${element.totalVendido + element.deuda} Bs.</td>
+        <td>${element.descuento} Bs.</td>
+      </tr>`
+    ).join("");
+
+    reporteLista += `
+      <tr>
+        <td>Servicios</td>
+        <td>${precioServicio} Bs.</td>
+        <td>${descuentoServicio} Bs.</td>
+      </tr>`;
+
+    // Plantilla HTML con Bootstrap
+    let imprimir = `
+    <!doctype html>
+    <html lang="es">
+    <head>
+      <meta charset="utf-8">
+      <title>Reporte Caja</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <!-- Bootstrap -->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+      <style>
+        body { font-family: Roboto, sans-serif; margin: 20px; }
+        h1 { text-align: center; margin-bottom: 20px; font-size: 24px; font-weight: bold; }
+        table { font-size: 14px; }
+        th { background-color: #f8f9fa; }
+      </style>
+    </head>
+    <body>
+      <h1>Reporte de Caja</h1>
+
+      <div class="table-responsive">
+        <table class="table table-bordered text-center">
+          <thead class="table-light">
+            <tr>
+              <th>Fecha Apertura</th>
+              <th>Fecha Cierre</th>
+              <th>Apertura Caja</th>
+              <th>Total Vendido</th>
+              <th>Total Caja</th>
+              <th>QR</th>
+              <th>Efectivo</th>
+              <th>Deuda</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>${fechaapertura}</td>
+              <td>${fechacierre}</td>
+              <td>${apertura} Bs.</td>
+              <td>${vendido} Bs.</td>
+              <td>${total} Bs.</td>
+              <td>${qr} Bs.</td>
+              <td>${efectivo} Bs.</td>
+              <td>${deuda} Bs.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 class="mt-4">Detalle por Categorías</h4>
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered text-center">
+          <thead class="table-light">
+            <tr>
+              <th>Categoría</th>
+              <th>Total Vendido</th>
+              <th>Descuentos Realizados</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${reporteLista}
+          </tbody>
+        </table>
+      </div>
+    </body>
+    </html>
+    `;
+
+    // Abrir ventana e imprimir
+    const WindowPrt = window.open("", "_blank");
+    if (WindowPrt) {
+      WindowPrt.document.write(imprimir);
+      WindowPrt.document.close();
+      WindowPrt.onload = () => {
+        WindowPrt.focus();
+        WindowPrt.print();
+        WindowPrt.close();
+      };
+    }
+  });
+}
 
 
-        let reporteLista = "";
-        reporte.forEach(element => {
-
-          reporteLista = reporteLista+ "<tr><td>"+element.categoriaPadre+"</td><td>"+element.totalVendido+" Bs.</td><td>"+element.descuento+" Bs.</td> </tr>"
-        });
-        ;
 
 
-        reporteLista = reporteLista + "<tr><td>Servicios</td><td>"+precioServicio+" Bs.</td><td>"+descuentoServicio+" Bs.</td> </tr>"
-
-        let imprimir=
-        "<!doctype html><html lang='en'><head><meta charset='utf-8'><title>Almacen Digital</title><base href='/'><meta name='viewport' content='width=device-width, initial-scale=1'><link rel='icon' type='image/x-icon' href='favicon.ico'><link rel='preconnect' href='https://fonts.gstatic.com'><link href='https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap' rel='stylesheet'><link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'><link href='https://fonts.googleapis.com/css?family=Bungee Inline' rel='stylesheet' type='text/css'><link href='https://fonts.googleapis.com/css?family=Corinthia'rel='stylesheet' type='text/css'><link href='https://fonts.googleapis.com/css?family=Arbutus' rel='stylesheet' type='text/css'></head><body class='mat-typography'>"+
-        "<style type='text/css'>"+
-        "td{ text-align: center;}"+
-        "th{ text-align: center;}"+
-        "tr{ text-align: center;}"+
-        ".table{width : 100%}"+
-        "</style>"+
-        "<h1  style='  text-align: center; font-size: x-large; ; font-family: "+'Bungee Inline'+", sans-serif;' class='medio'>INVENTARIO</h1>"+
-        "<table border style='width:100%'>"+
-        "<TR><TH>Fecha Apertura</TH ><TH>Fecha Cierre</TH ><TH>Apertura Caja</TH ><TH >Total Vendido</TH ><TH >Total Caja</TH ><TH >Qr</TH ><TH >Efectivo</TH ></TR>"+
-        "<tr><td>" + fechaapertura +"</td><td>" + fechacierre +"</td><td>" + apertura +" Bs.</td><td>"+vendido+" Bs.</td><td>"+total+" Bs.</td><td>"+qr+" Bs.</td> <td>"+efectivo+" Bs.</td>  </tr></table>"
-        +"<br><table border style='width:100%'><TR><TH>Categoria</TH ><TH>Total Vendido</TH ><TH >Descuentos Realizados </TH ></TR>"+ reporteLista;
-
-
-
-        //aqui imprime
-
-        const WindowPrt = window.open();
-        WindowPrt?.document.write(imprimir);
-
-
-        setTimeout(() => {
-          WindowPrt?.focus();
-          WindowPrt?.print();
-          WindowPrt?.close();
-        }, 50);
-
-
-
-      }
-    )
-
-  }
 
 
   imprimirFormato(venta : VentaVentaDetalle)

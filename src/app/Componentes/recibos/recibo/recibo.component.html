@@ -1,6 +1,7 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title>RECIBOS DE LA VENTA N° {{numeroVenta}}</mat-card-title>
+
     <mat-card-subtitle>Agregar</mat-card-subtitle>
   </mat-card-header>
   <mat-card-actions>
@@ -16,6 +17,44 @@
   </mat-card-actions>
 <br>
   <mat-card-content>
+
+    <div class="container my-3">
+  <div class="row text-center">
+
+    <!-- Total a pagar -->
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title text-primary">Total a pagar</h5>
+          <h2 class="fw-bold">{{totalpagar}} Bs.</h2>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagado -->
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title text-success">Pagado</h5>
+          <h2 class="fw-bold">{{totalpagado}} Bs.</h2>
+        </div>
+      </div>
+    </div>
+
+    <!-- Restante -->
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title text-danger">Restante</h5>
+          <h2 class="fw-bold">{{ totalpendiente}} Bs.</h2>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
     <table class="example-full-width" cellspacing="0">
       <tr>
         <td style="width: 100%;">

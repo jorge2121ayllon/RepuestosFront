@@ -10,7 +10,8 @@ efectivo : number;
   descuentoPrecio : number;
  precio : number;
   
-
+servicio : boolean;
+  credito : boolean;
 
 }
 

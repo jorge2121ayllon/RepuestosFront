@@ -45,6 +45,7 @@ recibo!: FormGroup;
       Id:new FormControl(''),
       Cliente: new FormControl('',[Validators.required, Validators.minLength(2)]),
       Descripcion: new FormControl(''),
+      TipoPago: new FormControl('efectivo', Validators.required),
       Total: new FormControl('', Validators.required),
       IdVenta: new FormControl('', Validators.required),
     });
@@ -60,13 +61,13 @@ recibo!: FormGroup;
 
 agregar(){
   this.service.agregar(this.recibo.value,this.token).subscribe((resp:any) => {
-    this.dialogRef.close();
+    this.dialogRef.close(this.recibo.value.Total);
     alert("se guardo el recibo con exito")
    })
 }
 actualizar(){
   this.service.actualizar(this.recibo.value,this.token).subscribe((resp:any) => {
-    this.dialogRef.close();
+    this.dialogRef.close(this.recibo.value.Total);
     alert("se actualizo el recibo con exito")
    })
 }

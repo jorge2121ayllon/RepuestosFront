@@ -7,5 +7,5 @@ export interface ReporteCaja{
   efectivo : number;
   descuentoServicio : number;
   precioServicio : number;
-  
+    deuda : number;
 }
