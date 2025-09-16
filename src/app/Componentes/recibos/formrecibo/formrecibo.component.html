@@ -11,6 +11,7 @@
                 </mat-form-field>
               </label>
         
+
             <label class="label">
               <mat-form-field appearance="outline" style="width: 100%;">
                 <mat-label>Ingrese La Descripcion</mat-label>
@@ -26,15 +27,13 @@
               </mat-form-field>
             </label>
 
-            <mat-form-field appearance="outline" class="w-100">
-    <mat-label>Tipo de Pago</mat-label>
-    <mat-select formControlName="TipoPago">
-      <mat-option value="">Seleccione...</mat-option>
-      <mat-option value="efectivo">Efectivo</mat-option>
-      <mat-option value="qr">QR</mat-option>
-    </mat-select>
-  </mat-form-field>
-
+      <mat-form-field appearance="fill">
+  <mat-label>Tipo de pago</mat-label>
+  <mat-select formControlName="Efectivo">
+    <mat-option [value]="true">Efectivo</mat-option>
+    <mat-option [value]="false">QR</mat-option>
+  </mat-select>
+</mat-form-field>
           </form>
         </div>
       </div>

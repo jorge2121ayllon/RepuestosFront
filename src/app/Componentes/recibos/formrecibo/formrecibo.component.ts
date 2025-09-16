@@ -46,6 +46,7 @@ recibo!: FormGroup;
       Cliente: new FormControl('',[Validators.required, Validators.minLength(2)]),
       Descripcion: new FormControl(''),
       TipoPago: new FormControl('efectivo', Validators.required),
+      Efectivo: new FormControl(true, Validators.required),
       Total: new FormControl('', Validators.required),
       IdVenta: new FormControl('', Validators.required),
     });
@@ -57,6 +58,7 @@ recibo!: FormGroup;
     this.recibo.controls['Descripcion'].setValue(obj.descripcion)
     this.recibo.controls['Total'].setValue(obj.total)
     this.recibo.controls['IdVenta'].setValue(obj.idVenta)
+     this.recibo.controls['Efectivo'].setValue(obj.efectivo)
   }
 
 agregar(){

@@ -9,5 +9,6 @@ export class ReporteVenta{
   descripcion?:string;
   descuento?: number;
   egresos?: number;
+  deuda?: number;   // 👈 nuevo
 
 }

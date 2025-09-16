@@ -73,7 +73,7 @@ export class VentaService {
   }
 
 
- ReporteCaja(obj: any) {
+ReporteCaja(obj: any) {
   var respuesta = this.http.get<Response>(this.baseUrl + "/ReporteCaja?idCaja=" + obj.id);
 
   respuesta.subscribe(r => {
@@ -119,7 +119,7 @@ export class VentaService {
         <td>${descuentoServicio} Bs.</td>
       </tr>`;
 
-    // Plantilla HTML con Bootstrap
+    // Plantilla HTML con Bootstrap cards
     let imprimir = `
     <!doctype html>
     <html lang="es">
@@ -132,59 +132,64 @@ export class VentaService {
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
       <style>
-        body { font-family: Roboto, sans-serif; margin: 20px; }
-        h1 { text-align: center; margin-bottom: 20px; font-size: 24px; font-weight: bold; }
-        table { font-size: 14px; }
-        th { background-color: #f8f9fa; }
+        body { font-family: Roboto, sans-serif; margin: 20px; background-color: #f8f9fa; }
+        h1 { text-align: center; margin-bottom: 30px; font-size: 26px; font-weight: bold; }
+        .card { border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .valor { font-size: 20px; font-weight: bold; color: #212529; }
+        .label { font-size: 14px; color: #6c757d; }
       </style>
     </head>
     <body>
       <h1>Reporte de Caja</h1>
 
-      <div class="table-responsive">
-        <table class="table table-bordered text-center">
-          <thead class="table-light">
-            <tr>
-              <th>Fecha Apertura</th>
-              <th>Fecha Cierre</th>
-              <th>Apertura Caja</th>
-              <th>Total Vendido</th>
-              <th>Total Caja</th>
-              <th>QR</th>
-              <th>Efectivo</th>
-              <th>Deuda</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>${fechaapertura}</td>
-              <td>${fechacierre}</td>
-              <td>${apertura} Bs.</td>
-              <td>${vendido} Bs.</td>
-              <td>${total} Bs.</td>
-              <td>${qr} Bs.</td>
-              <td>${efectivo} Bs.</td>
-              <td>${deuda} Bs.</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="container mb-4">
+        <div class="row g-3">
+          <div class="col-md-6 col-lg-4">
+            <div class="card text-center p-3">
+              <div class="label">Fecha Apertura</div>
+              <div class="valor">${fechaapertura}</div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="card text-center p-3">
+              <div class="label">Fecha Cierre</div>
+              <div class="valor">${fechacierre}</div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="card text-center p-3">
+              <div class="label">Apertura Caja</div>
+              <div class="valor">${apertura} Bs.</div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="card text-center p-3">
+              <div class="label">Total Vendido</div>
+              <div class="valor">${vendido} Bs.</div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="card text-center p-3">
+              <div class="label">Total Caja</div>
+              <div class="valor">${total} Bs.</div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="card text-center p-3">
+              <div class="label">QR</div>
+              <div class="valor">${qr} Bs.</div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="card text-center p-3">
+              <div class="label">Efectivo</div>
+              <div class="valor">${efectivo} Bs.</div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <h4 class="mt-4">Detalle por Categorías</h4>
-      <div class="table-responsive">
-        <table class="table table-striped table-bordered text-center">
-          <thead class="table-light">
-            <tr>
-              <th>Categoría</th>
-              <th>Total Vendido</th>
-              <th>Descuentos Realizados</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${reporteLista}
-          </tbody>
-        </table>
-      </div>
+  
     </body>
     </html>
     `;
@@ -202,6 +207,7 @@ export class VentaService {
     }
   });
 }
+
 
 
 
