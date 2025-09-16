@@ -1,4 +1,14 @@
 <div style="margin: 15px;">
+  <!-- Botón de impresión -->
+  <button mat-raised-button color="accent" (click)="imprimir()">
+    <mat-icon>print</mat-icon> Imprimir
+  </button>
+
+  <!-- Aquí va todo tu contenido -->
+
+   
+
+<div style="margin: 15px;">
 <form [formGroup]="form" autocomplete="off" >
 
   <h1 style="font-size: xx-large; text-align: center;">Reporte de Ventas</h1>
@@ -52,7 +62,7 @@
 
     </div>
   </form>
-
+  <div id="contenido-imprimir">
       <div class="container-fluid"  *ngIf="cantidadTotal>0" >
 
         <div class="row">
@@ -214,54 +224,60 @@
 
 
 
-    <div class="table-responsive"  *ngIf="cantidadTotal>0">
+<div class="tabla-reporte" *ngIf="cantidadTotal > 0">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
-      <table mat-table [dataSource]="listaReporte"  class="mat-elevation-z8">
+    <ng-container matColumnDef="descripcion">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </th>
+      <td mat-cell *matCellDef="let element"> {{ element.descripcion }} </td>
+    </ng-container>
 
-        <ng-container matColumnDef="Descripcion"  >
-            <th mat-header-cell *matHeaderCellDef> Descripcion </th>
-            <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
-        </ng-container>
+    <ng-container matColumnDef="precioVenta">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio Venta </th>
+      <td mat-cell *matCellDef="let element"> {{ element.precioVenta }} Bs. </td>
+    </ng-container>
 
-        <ng-container matColumnDef="Precio Venta">
-          <th mat-header-cell *matHeaderCellDef > Precio Venta </th>
-          <td mat-cell *matCellDef="let element"> {{element.precioVenta}} Bs.</td>
-        </ng-container>
+    <ng-container matColumnDef="precioCompra">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio Compra </th>
+      <td mat-cell *matCellDef="let element"> {{ element.precioCompra }} Bs. </td>
+    </ng-container>
 
-        <ng-container matColumnDef="Precio Compra">
-          <th mat-header-cell *matHeaderCellDef > Precio Compra </th>
-          <td mat-cell *matCellDef="let element"> {{element.precioCompra}} Bs.</td>
-        </ng-container>
+    <ng-container matColumnDef="cantidadVendida">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Cantidad Vendida </th>
+      <td mat-cell *matCellDef="let element"> {{ element.cantidadVendida }} </td>
+    </ng-container>
 
-        <ng-container matColumnDef="Cantidad Vendida">
-          <th mat-header-cell *matHeaderCellDef > Cantidad Vendida </th>
-          <td mat-cell *matCellDef="let element"> {{element.cantidadVendida}} </td>
-        </ng-container>
+    <ng-container matColumnDef="totalInversion">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Inversión </th>
+      <td mat-cell *matCellDef="let element"> {{ element.totalInversion }} Bs. </td>
+    </ng-container>
 
-        <ng-container matColumnDef="Inversion">
-          <th mat-header-cell *matHeaderCellDef > Inversion </th>
-          <td mat-cell *matCellDef="let element"> {{element.totalInversion}} Bs. </td>
-        </ng-container>
+    <ng-container matColumnDef="totalVendido">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Venta </th>
+      <td mat-cell *matCellDef="let element"> {{ element.totalVendido }} Bs. </td>
+    </ng-container>
 
-        <ng-container matColumnDef="Venta">
-          <th mat-header-cell *matHeaderCellDef > Venta </th>
-          <td mat-cell *matCellDef="let element"> {{element.totalVendido}} Bs.</td>
-        </ng-container>
+    <ng-container matColumnDef="descuento">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Descuento </th>
+      <td mat-cell *matCellDef="let element"> {{ element.descuento }} Bs. </td>
+    </ng-container>
 
-        <ng-container matColumnDef="Descuento">
-          <th mat-header-cell *matHeaderCellDef > Descuento </th>
-          <td mat-cell *matCellDef="let element"> {{element.descuento}} Bs. </td>
-        </ng-container>
+    <ng-container matColumnDef="deuda">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Deuda </th>
+      <td mat-cell *matCellDef="let element"> {{ element.deuda }} Bs. </td>
+    </ng-container>
 
-        <ng-container matColumnDef="Ganancia">
-          <th mat-header-cell *matHeaderCellDef > Ganancia </th>
-          <td mat-cell *matCellDef="let element"> {{element.totalGanancia}} Bs. </td>
-        </ng-container>
+    <ng-container matColumnDef="totalGanancia">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Ganancia </th>
+      <td mat-cell *matCellDef="let element"> {{ element.totalGanancia }} Bs. </td>
+    </ng-container>
 
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
+</div>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-     </div>
-
-
+ <!-- tus cards, tablas, etc. -->
+  </div>
+</div>

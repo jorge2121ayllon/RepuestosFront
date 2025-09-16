@@ -66,6 +66,8 @@ import { EgresosComponent } from './componentes/egreso/egresos/egresos.component
 import { AddegresoComponent } from './componentes/egreso/addegreso/addegreso.component';
 import { ReciboComponent } from './Componentes/recibos/recibo/recibo.component';
 import { FormreciboComponent } from './Componentes/recibos/formrecibo/formrecibo.component';
+import { MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
 @NgModule({
   declarations: [
     AppComponent,
@@ -127,7 +129,16 @@ import { FormreciboComponent } from './Componentes/recibos/formrecibo/formrecibo
     MatPaginatorModule,
     MatSelectModule,
     NgChartsModule,
-    MatGridListModule
+    MatGridListModule,
+     MatTableModule,
+    MatSortModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     DatePipe,

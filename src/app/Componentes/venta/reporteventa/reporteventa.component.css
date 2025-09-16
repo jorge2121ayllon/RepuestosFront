@@ -1,4 +1,3 @@
-
 .border-left-primary {
   border-left: 0.25rem solid #4e73df !important;
 }
@@ -93,29 +92,76 @@
 }
 
 
-.example-full-width{
+.example-full-width {
   width: 95%;
 }
 
-
-
-
-td.mat-mdc-cell{
+td.mat-mdc-cell {
   padding: 0;
   border-bottom-width: 8px;
   border-bottom-style: solid;
   text-align: center;
 }
-th.mat-mdc-header-cell
-{
+
+th.mat-mdc-header-cell {
   text-align: center;
   color: #000;
 }
 
-td.mat-mdc-cell{
+td.mat-mdc-cell {
   text-align: center;
   font-size: medium;
   font-family: 'Poppins', sans-serif;
 }
 
 
+/* 🔹 Ajuste de grid en impresión */
+@media print {
+  .row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+  }
+
+  .col-xl-2, .col-md-6, .col {
+    flex: 0 0 30% !important;   /* 3 cards por fila */
+    max-width: 30% !important;
+    padding: 4px !important;
+    display: block !important;
+  }
+
+  /* Ajustar altura y espaciado de cards */
+  .card {
+    margin: 4px !important;
+    padding: 6px !important;
+    height: auto !important;
+    box-shadow: none !important;
+  }
+
+  .card-body {
+    padding: 6px !important;
+  }
+
+  /* Texto más compacto */
+  .card .h5 {
+    font-size: 12px !important;
+  }
+
+  .text-xs {
+    font-size: 11px !important;
+  }
+
+  mat-icon {
+    font-size: 16px !important;
+  }
+
+  /* Tablas más compactas */
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    font-size: 11px !important;
+  }
+
+  th, td {
+    padding: 4px !important;
+  }
+}
