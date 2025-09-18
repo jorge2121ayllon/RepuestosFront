@@ -20,7 +20,7 @@ export class ReciboComponent {
 recibos!:any[];//var para la lista de categorias
   categoriasTabla!:any[];//var para la lista de categorias para mostrar los nombres en la tabla de idCategoria
   token!:any;//var para el token
-  displayedColumns: string[] = ['Id', 'Cliente', 'Descripcion','Fecha','Total', 'Acciones'];//columnas de la tabla
+  displayedColumns: string[] = ['Id', 'Cliente', 'Descripcion','Fecha','Total', 'TipoPago', 'Acciones'];//columnas de la tabla
   dataSource!:any;//var para agregar datos a la tabla
   disabled = new FormControl(false);//var para el tooltip
   @ViewChild(MatPaginator)paginatorr!: MatPaginator ;//var para la paginacion
@@ -121,6 +121,8 @@ cargarLista(token:string){
     
 
     this.recibos=resp.data;
+     console.log("estopooooooo");
+    console.log(this.recibos);
     this.dataSource = new MatTableDataSource<Categoria>(this.recibos); //cargando la lista en la tabla
     //this.dataSource.paginator = this.paginator; //paginator
 
