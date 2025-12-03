@@ -245,8 +245,173 @@ ReporteCaja(obj: any) {
       }
       lista = lista + "<tr>"+"<td>"+element.idProducto+"</td>"+"<td>"+element.cantidad+"</td>"+"<td colspan='2'>"+element.producto+"</td>"+"<td>"+element.precioVenta+" Bs. </td>"+"<td>"+ subtotal2 +" Bs. </td>"+"<td>"+element.descuento+" Bs. </td>"+"<td>"+element.subTotal+" Bs. </td>"+"</tr>"
     });
+//src='../../../assets/images/logo.jpg'
+    //nuevo formato recibo
+    let newimprimir=
+    "<!doctype html><html lang='es'><head><meta charset='utf-8'><title>Recibo de Caja</title><base href='/'>" +
+"<link href='https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap' rel='stylesheet'>" +
+"<style>" +
+"*{font-family:'Poppins',sans-serif;} body{margin:20px;color:#2b2b2b;}" +
+".header{display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #000;padding-bottom:10px;}" +
+".empresa h1{margin:0;font-size:26px;font-weight:600;letter-spacing:1px;}" +
+".empresa p{margin:0;font-size:13px;color:#555;}" +
+".recibo{text-align:right;}" +
+".recibo h1{margin:0;font-size:30px;font-weight:700;}" +
+".recibo span{font-size:16px;color:#333;}" +
+".info-cliente{margin-top:20px;padding:12px;background:#f7f7f7;border-radius:8px;font-size:15px;}" +
+"table{width:100%;border-collapse:collapse;margin-top:25px;font-size:14px;}" +
+"thead{background:#f0f0f0;border-bottom:2px solid #000;}" +
+"thead th{padding:10px 6px;font-weight:600;text-align:center;}" +
+"tbody td{padding:8px 6px;border-bottom:1px solid #ddd;text-align:center;}" +
+"tfoot th{padding:10px;font-size:16px;text-align:right;}" +
+".total-final{font-size:18px;font-weight:700;text-align:right;padding-top:5px;}" +
+"</style></head><body>" +
+
+"<div class='header'>" +
+"   <div class='empresa'>" +
+"       <h1>'VF' AUTOREPUESTOS VALENTINA </h1>" +
+"       <p>Barrio Lourdes, Calle Colón y Sta. Bernadita Sta. María</p>" +
+"       <p>Cel: 75145134 - 78224179</p>" +
+"   </div>" +
+
+"   <div class='recibo'>" +
+"       <h1>RECIBO DE CAJA</h1>" +
+"       <span>Nº 000" + venta.venta.id + "</span>" +
+"   </div>" +
+"</div>" +
+
+"<div class='info-cliente'>" +
+"   <p><strong>Tarija,</strong> " + date.getDate() + " de " + this.months[date.getMonth()+1] + " del " + date.getFullYear() + "</p>" +
+"   <p><strong>Razón Social:</strong> <span style='text-transform:capitalize;'>" + venta.venta.nombreCliente + "</span></p>" +
+"   <p><strong>NIT:</strong> " + venta.venta.nit + "</p>" +
+"</div>" +
+
+"<table>" +
+"   <thead>" +
+"       <tr>" +
+"           <th>Código</th>" +
+"           <th>Cant.</th>" +
+"           <th colspan='2'>Descripción</th>" +
+"           <th>Precio U.</th>" +
+"           <th>Subtotal</th>" +
+"           <th>Desc.</th>" +
+"           <th>Total</th>" +
+"       </tr>" +
+"   </thead>" +
+
+"   <tbody>" +
+        lista +
+"   </tbody>" +
+
+"   <tfoot>" +
+"       <tr>" +
+"           <th colspan='7' class='total-final'>Total Final:</th>" +
+"           <th class='total-final'>" + venta.venta.total + " Bs.</th>" +
+"       </tr>" +
+"   </tfoot>" +
+"</table>" +
+
+"</body></html>"
+
+//recibo con logo
+    let newimprimirlogo=
+    "<!doctype html><html lang='es'><head><meta charset='utf-8'><title>Recibo de Caja</title><base href='/'>" +
+"<link href='https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap' rel='stylesheet'>" +
+"<style>" +
+"*{font-family:'Poppins',sans-serif;} body{margin:20px;color:#2b2b2b;}" +
+
+/*** CABECERA CON IMAGEN AL 100% ***/
+".header-img{width:100%;height:160px;overflow:hidden;margin-bottom:10px;}" +
+".header-img img{width:100%;height:100%;object-fit:cover;}" +
+
+".empresa{text-align:center;border-bottom:3px solid #000;padding-bottom:10px;}" +
+".empresa h1{margin:0;font-size:32px;font-weight:700;}" +
+".empresa p{margin:2px;font-size:14px;color:#555;}" +
+
+".recibo{text-align:center;margin-top:10px;}" +
+".recibo h2{margin:0;font-size:24px;font-weight:700;}" +
+".recibo span{font-size:16px;color:#333;}" +
+
+/*** INFO CLIENTE ***/
+".info-cliente{margin-top:20px;padding:15px;background:#f7f7f7;border-radius:8px;font-size:15px;}" +
+
+/*** TABLA ***/
+"table{width:100%;border-collapse:collapse;margin-top:25px;font-size:14px;}" +
+"thead{background:#f0f0f0;border-bottom:2px solid #000;}" +
+"thead th{padding:10px 6px;font-weight:600;text-align:center;}" +
+"tbody td{padding:8px 6px;border-bottom:1px solid #ddd;text-align:center;}" +
+"tfoot th{padding:10px;font-size:16px;text-align:right;}" +
+".total-final{font-size:18px;font-weight:700;text-align:right;padding-top:5px;}" +
+"</style></head><body>" +
 
 
+/******** BANNER A TODO EL ANCHO ********/
+"<div style='width: 100%; text-align: center; margin-bottom: 10px;'>" +
+    "<img " +
+      "src='../../../assets/images/logo.jpg' " +
+      "alt='Cabecera' " +
+      "style='" +
+        "width: 100%; " +
+        "max-height: 180px; " +        // altura más alta
+        "height: auto; " +
+        "object-fit: contain; " +      // no corta la imagen
+        "border-radius: 15px; " +      // bordes redondeados
+        "display: block; " +
+      "' " +
+    "/>" +
+  "</div>"+
+
+/******** TÍTULO DEL NEGOCIO ********/
+
+
+/******** RECIBO ********/
+"<div class='recibo'>" +
+"   <h2>RECIBO DE CAJA</h2>" +
+"   <span>Nº 000" + venta.venta.id + "</span>" +
+"</div>" +
+
+
+/******** INFO CLIENTE ********/
+"<div class='info-cliente'>" +
+"   <p><strong>San Cristóbal,</strong> " + date.getDate() + " de " + this.months[date.getMonth()+1] + " del " + date.getFullYear() + "</p>" +
+"   <p><strong>Dirección:</strong> <span style='text-transform:capitalize;'>Colón y Sta. Bernadita Sta María </span></p>" +
+"   <p><strong>Razón Social:</strong> <span style='text-transform:capitalize;'>" + venta.venta.nombreCliente + "</span></p>" +
+"   <p><strong>NIT:</strong> " + venta.venta.nit + "</p>" +
+"</div>" +
+
+
+/******** TABLA ********/
+"<table>" +
+"   <thead>" +
+"       <tr>" +
+"           <th>Código</th>" +
+"           <th>Cant.</th>" +
+"           <th colspan='2'>Descripción</th>" +
+"           <th>Precio U.</th>" +
+"           <th>Subtotal</th>" +
+"           <th>Desc.</th>" +
+"           <th>Total</th>" +
+"       </tr>" +
+"   </thead>" +
+
+"   <tbody>" +
+        lista +
+"   </tbody>" +
+
+"   <tfoot>" +
+"       <tr>" +
+"           <th colspan='7' class='total-final'>Total Final:</th>" +
+"           <th class='total-final'>" + venta.venta.total + " Bs.</th>" +
+"       </tr>" +
+"   </tfoot>" +
+"</table>" +
+
+"</body></html>"
+
+
+
+
+//antigua implementacion de recibo
     let imprimir=
     "<!doctype html><html lang='en'><head><meta charset='utf-8'><title>Almacen Digital</title><base href='/'><meta name='viewport' content='width=device-width, initial-scale=1'><link rel='icon' type='image/x-icon' href='favicon.ico'><link rel='preconnect' href='https://fonts.gstatic.com'><link href='https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap' rel='stylesheet'><link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'><link href='https://fonts.googleapis.com/css?family=Bungee Inline' rel='stylesheet' type='text/css'><link href='https://fonts.googleapis.com/css?family=Corinthia'rel='stylesheet' type='text/css'><link href='https://fonts.googleapis.com/css?family=Arbutus' rel='stylesheet' type='text/css'></head><body class='mat-typography'>"+
     "<style type='text/css'>"+
@@ -296,8 +461,11 @@ ReporteCaja(obj: any) {
     +"</div>"
 
     const WindowPrt = window.open();
-    WindowPrt?.document.write(imprimir);
+    //antigua implemantacion de recibo
+    //WindowPrt?.document.write(imprimir);
 
+    //nuwva implementacion de recibo
+      WindowPrt?.document.write(newimprimir);
 
     setTimeout(() => {
       WindowPrt?.focus();
