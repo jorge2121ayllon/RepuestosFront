@@ -30,6 +30,9 @@ console.log(this.PaginacionService.FiltroStock.IdCategoria)
       var precioCompra=this.PaginacionService.FiltroStock.PrecioCompra;
       var precioVenta=this.PaginacionService.FiltroStock.PrecioVenta;
       var marca=this.PaginacionService.FiltroStock.Marca;
+      var motor=this.PaginacionService.FiltroStock.Motor;
+      var tipo=this.PaginacionService.FiltroStock.Tipo;
+      var nombre=this.PaginacionService.FiltroStock.Nombre;
       var descripcion=this.PaginacionService.FiltroStock.Descripcion;
       var stock=this.PaginacionService.FiltroStock.Stock;
       var stockMinimo=this.PaginacionService.FiltroStock.StockMinimo;
@@ -44,6 +47,9 @@ console.log(this.PaginacionService.FiltroStock.IdCategoria)
       '?PrecioCompra='+precioCompra+
       '&PrecioVenta='+precioVenta+
       '&Marca='+marca+
+      '&Motor='+motor+
+      '&Tipo='+tipo+
+      '&Nombre='+nombre+
       '&Descripcion='+descripcion+
       '&Stock='+stock+
       '&StockMinimo='+stockMinimo+

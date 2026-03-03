@@ -19,7 +19,7 @@ export class ProductoComponent implements OnInit {
   productos!:any[];//var para la lista de productos
   categoriasTabla!:any[];//var para la lista de categorias para mostrar los nombres en la tabla de idCategoria
   token!:any;//var para el token
-  displayedColumns: string[] = ['Id', 'PrecioCompra', 'PrecioVenta', 'Marca', 'Descripcion', 'Stock', 'Codigo','FechaMovimiento','IdCategoria', 'Acciones'];//columnas de la tabla
+  displayedColumns: string[] = ['Id', 'Nombre','PrecioCompra', 'PrecioVenta', 'Marca', 'Tipo','Motor','Descripcion', 'Stock', 'Codigo','FechaMovimiento','IdCategoria', 'Acciones'];//columnas de la tabla
   dataSource!:any;//var para agregar datos a la tabla
   disabled = new FormControl(false);//var para el tooltip
   metadata :any;//var para la paginacion

@@ -2,6 +2,9 @@ export class FiltroStock{
     PrecioCompra?: number;
     PrecioVenta?: number;
     Marca?: string;
+    Tipo?: string;
+    Motor?: string;
+    Nombre?: string;
     Descripcion?: string;
     Stock?: number;
     StockMinimo?: number;

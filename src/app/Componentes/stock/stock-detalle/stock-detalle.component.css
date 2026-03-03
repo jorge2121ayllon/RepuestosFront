@@ -1,29 +1,50 @@
-.example-form-field {
-    width: 300px;
-  }
-  .example-h2 {
-    margin: 10px;
-  }
+.custom-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+}
 
-  .example-section {
-    display: flex;
-    align-content: center;
-    align-items: center;
-    height: 60px;
-  }
+.title-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
 
-  .example-margin {
-    margin: 0 10px;
-  }
+.header-icon {
+  font-size: 38px;
+  color: #3f51b5;
+}
 
-  .example-full-width {
-    width: 200px;
-  }
-  table {
-    width: 100%;
-  }
+.main-title {
+  font-size: 22px;
+  font-weight: 600;
+}
 
-  th{
-    text-align: center;
-  }
+.spacer {
+  flex: 1 1 auto;
+}
 
+.add-button {
+  border-radius: 25px;
+  padding: 0 20px;
+}
+
+
+.search-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.search-button {
+  border-radius: 25px;
+  padding: 0 25px;
+  font-weight: 500;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+}
+
+.search-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+}

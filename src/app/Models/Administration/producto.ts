@@ -11,6 +11,9 @@ export interface Producto{
     fechaMovimiento:Date;
     unidad?:string
     idCategoria?:number
+    nombre?:string
+    tipo?:string
+    motor?:string
 
 
 

@@ -4,6 +4,14 @@
           <form class="form" novalidate [formGroup]="producto">
             <label class="label">
               <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Nombre</mat-label>
+                <input matInput placeholder="Nombre" formControlName="Nombre">
+                <mat-hint align="end" *ngIf="producto.get('Nombre')!.value===''" style="color: red;">Campo Obligatorio</mat-hint>
+              </mat-form-field>
+            </label>
+            <br>
+            <label class="label">
+              <mat-form-field appearance="outline" style="width: 100%;">
                 <mat-label>Descripcion</mat-label>
                 <input matInput placeholder="Descripcion" formControlName="Descripcion">
                 <mat-hint align="end" *ngIf="producto.get('Descripcion')!.value===''" style="color: red;">Campo Obligatorio</mat-hint>
@@ -20,6 +28,24 @@
                 </label>
               </div>
               
+            </div>
+            <div class="row"  style="margin-bottom: 10px;">
+              <div class="col">
+                <label class="label">
+                  <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+                    <mat-label>Motor</mat-label>
+                    <input  matInput placeholder="Motor" formControlName="Motor">
+                  </mat-form-field>
+                </label>
+              </div>
+              <div class="col">
+                <label class="label">
+                  <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+                    <mat-label>Tipo</mat-label>
+                    <input  matInput placeholder="Tipo" formControlName="Tipo">
+                  </mat-form-field>
+                </label>
+              </div>
             </div>
 
             <div class="row"  style="margin-bottom: 10px;">

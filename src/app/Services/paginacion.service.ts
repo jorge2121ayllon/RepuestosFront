@@ -25,6 +25,9 @@ export class PaginacionService {
     this.FiltroStock.PrecioCompra=0;
     this.FiltroStock.PrecioVenta=0;
     this.FiltroStock.Marca="";
+    this.FiltroStock.Motor="";
+    this.FiltroStock.Nombre="";
+    this.FiltroStock.Tipo="";
     this.FiltroStock.Descripcion="";
     this.FiltroStock.Stock=0;
     this.FiltroStock.StockMinimo=0;

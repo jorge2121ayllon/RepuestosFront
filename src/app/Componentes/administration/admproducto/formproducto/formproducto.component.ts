@@ -53,7 +53,10 @@ export class FormproductoComponent implements OnInit {
       CodigoInterno: new FormControl(''),
       Code: new FormControl(false),
       Unidad: new FormControl(''),
-      IdCategoria: new FormControl(0,[Validators.required])
+      IdCategoria: new FormControl(0,[Validators.required]),
+      Nombre: new FormControl(''),
+      Tipo: new FormControl(''),
+      Motor: new FormControl('')
     });
   }
   //metodo para cargar el form para editarlo
@@ -69,6 +72,9 @@ export class FormproductoComponent implements OnInit {
     this.producto.controls['CodigoInterno'].setValue(obj.codigoInterno)
     this.producto.controls['Unidad'].setValue(obj.unidad)
     this.producto.controls['IdCategoria'].setValue(obj.idCategoria)
+    this.producto.controls['Motor'].setValue(obj.motor)
+    this.producto.controls['Tipo'].setValue(obj.tipo)
+    this.producto.controls['Nombre'].setValue(obj.nombre)
   }
   //metodo para cargar la lista de categorias hijas para el select
 cargarListaCategorias(){
